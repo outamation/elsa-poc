@@ -11,4 +11,9 @@ namespace Elsa.Workflows.CustomActivities.Signals.Bookmark
     {
         public string Signal { get; set; } = default!;
     }
+
+    public class TitleOrderedBookmark : IBookmark
+    {
+        public string Signal { get; set; } = default!;
+    }
 }
