@@ -17,3 +17,19 @@
     border: 1px solid green;
     ;
 }
+
+::ng-deep .p-accordion .via-complete-step .p-accordion-header .p-accordion-header-link {
+    color: green;
+}
+
+::ng-deep .p-accordion .via-complete-step .p-accordion-tab-active .p-accordion-header .p-accordion-header-link {
+    color: green;
+}
+
+::ng-deep .p-accordion .via-overdue-step .p-accordion-header .p-accordion-header-link {
+    color: red;
+}
+
+::ng-deep .p-accordion .via-overdue-step .p-accordion-tab-active .p-accordion-header .p-accordion-header-link {
+    color: red;
+}

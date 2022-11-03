@@ -20,7 +20,7 @@ export class AppComponent implements OnInit {
   stepItems: MenuItem[] = [];
   caseStepTasks: any = [];
   activeIndex = 0
-  showSideBar = false;
+  caseCompleted = false;
   case: any = {
     File: "Test-File-XYZ",
     FileType: "Default Servicing",
@@ -40,7 +40,6 @@ export class AppComponent implements OnInit {
   constructor(private primengConfig: PrimeNGConfig,
     private messageService: MessageService,
     private http: HttpClient) { }
-
 
   ngOnInit() {
     this.primengConfig.ripple = true;
@@ -112,19 +111,24 @@ export class AppComponent implements OnInit {
     this.overDueSteps();
   }
   caseCreate() {
-    if (!this.worflowInstanceId) {
-      this.httpGet(this.workflowStart);
-      this.showSuccess("Case is created successfully, Please proceed with case steps.");
+    if (this.case.Case) {
+      if (!this.worflowInstanceId) {
+        this.httpGet(this.workflowStart);
+        this.showSuccess("Case is created successfully, Please proceed with case steps.");
+      }
+      this.overDueSteps();
+      this.next();
+    } else {
+      this.showError("Case Number is required.");
     }
-    this.overDueSteps();
-    this.next();
   }
 
   overDueSteps() {
     setTimeout(() => {
-      this.caseStepTasks.map((x: { stepName: string; stepSignal: string; completed: boolean; disabled: boolean; }) => {
-        if (x.stepSignal === 'FCSCRAEligibilityReview') {
-          x.stepName = x.stepName + ' - OverDue';
+      this.caseStepTasks.map((x: { stepName: string; stepSignal: string; completed: boolean; disabled: boolean; overdue: boolean; }) => {
+        if (x.stepSignal === 'FCSCRAEligibilityReview' && !x.stepName.includes('Complete')) {
+          x.stepName = x.stepName.replace(' - OverDue', '') + ' - OverDue';
+          x.overdue = true;
         }
       });
     }, 60 * 1000);
@@ -134,6 +138,7 @@ export class AppComponent implements OnInit {
   }
 
   caseComplete() {
+    this.caseCompleted = true;
     this.showSuccess("The case is now completed.");
   }
 
@@ -167,7 +172,9 @@ export class AppComponent implements OnInit {
       .subscribe((data: any) => {
         console.log(data);
         if (data.workflowStatus === "Finished") {
-          this.showSuccess("All the Case steps are Complete, the case can be marked complete.");
+          if (!this.caseCompleted) {
+            this.showSuccess("All the Case steps are Complete, the case can be marked complete.");
+          }
           this.next();
         } else {
           this.showError("Before Case Completion, Please make sure that all case steps are Complete.");

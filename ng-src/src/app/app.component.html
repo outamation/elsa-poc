@@ -7,7 +7,7 @@
     </div>
   </div>
   <div class="col-2 mt-3 flex justify-content-end flex-wrap">
-    <span>{{case.User}}</span>
+    <span class="font-bold">{{case.User}}</span>
   </div>
 </div>
 <div class="grid m-3 mt-0">
@@ -51,13 +51,13 @@
                 class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
             </div>
             <div class="field col-3 md:col-3">
-              <label for="case" class="font-bold">Case</label>
-              <input id="case" type="text" [(ngModel)]="case.Case"
+              <label for="case" class="font-bold">Case</label><span class="font-bold text-red-500"> *</span>
+              <input id="case" type="text" [(ngModel)]="case.Case" [disabled]="caseCompleted"
                 class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
             </div>
             <div class="field col-3 md:col-3">
               <label for="casetype" class="font-bold">Case Type</label>
-              <select id="casetype"
+              <select id="casetype" [disabled]="caseCompleted"
                 class="w-full text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary"
                 style="appearance: auto">
                 <option value="100064">Bankruptcy</option>
@@ -73,27 +73,27 @@
             </div>
             <div class="field col-3 md:col-3">
               <label for="user" class="font-bold">User</label>
-              <input id="user" type="text" [(ngModel)]="case.User"
+              <input id="user" type="text" [(ngModel)]="case.User" [disabled]="caseCompleted"
                 class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
             </div>
             <div class="field col-3 md:col-3">
               <label for="atty" class="font-bold">Atty</label>
-              <input id="atty" type="text" [(ngModel)]="case.Atty"
+              <input id="atty" type="text" [(ngModel)]="case.Atty" [disabled]="caseCompleted"
                 class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
             </div>
             <div class="field col-3">
               <label for="address" class="font-bold">Property Address</label>
-              <textarea id="address" type="text" rows="2" [(ngModel)]="case.Address"
+              <textarea id="address" type="text" rows="2" [(ngModel)]="case.Address" [disabled]="caseCompleted"
                 class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"></textarea>
             </div>
             <div class="field col-2 md:col-3">
               <label for="city" class="font-bold">City</label>
-              <input id="city" type="text" [(ngModel)]="case.City"
+              <input id="city" type="text" [(ngModel)]="case.City" [disabled]="caseCompleted"
                 class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
             </div>
             <div class="field col-2 md:col-3">
               <label for="state" class="font-bold">State</label>
-              <select id="state"
+              <select id="state" [disabled]="caseCompleted"
                 class="w-full text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary"
                 style="appearance: auto">
                 <option>Alaska</option>
@@ -150,7 +150,7 @@
             </div>
             <div class="field col-2 md:col-3">
               <label for="county" class="font-bold">County</label>
-              <select id="county"
+              <select id="county" [disabled]="caseCompleted"
                 class="w-full text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary"
                 style="appearance: auto">
                 <option>Alachua County</option>
@@ -162,13 +162,13 @@
             </div>
             <div class="field col-2 md:col-3">
               <label for="zip" class="font-bold">Zip</label>
-              <input id="zip" type="text" [(ngModel)]="case.Zip"
+              <input id="zip" type="text" [(ngModel)]="case.Zip" [disabled]="caseCompleted"
                 class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
             </div>
 
             <div class="field col-12">
               <label for="address" class="font-bold">Notes</label>
-              <textarea id="address" type="text" rows="2"
+              <textarea id="address" type="text" rows="2" [disabled]="caseCompleted"
                 class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"></textarea>
             </div>
           </div>
@@ -221,7 +221,9 @@
         </div>
         <div class="mb-3">
           <p-accordion>
-            <p-accordionTab *ngFor="let step of caseStepTasks" [header]="step.stepName" [disabled]="step.disabled">
+            <p-accordionTab *ngFor="let step of caseStepTasks"
+              [ngClass]="{'via-complete-step': step.completed,'via-overdue-step': step.overdue }"
+              [header]="step.stepName" [disabled]="step.disabled">
               <div class="formgrid grid">
                 <div class="field col-3 md:col-3">
                   <label for="fileid" class="font-bold">Target Complete Date</label>
@@ -298,10 +300,9 @@
           </p-accordion>
         </div>
         <div class="flex justify-content-end flex-wrap card-container green-container">
-          <button pButton pRipple type="button" class="mx-3" icon="pi pi-replay" label="Reforecast" iconPos="left"
-            (click)="reforecastStepTasks()"></button>
-
           <a class="mt-4" target="WorkflowProgress" href={{worflowProgressUrl}}>Workflow Progress</a>
+          <button pButton pRipple type="button" class="ml-3" icon="pi pi-replay" label="Reforecast" iconPos="left"
+            (click)="reforecastStepTasks()"></button>
 
           <button pButton pRipple type="button" class="mx-3" icon="pi pi-chevron-left" label="Back" iconPos="left"
             (click)="back()"></button>
@@ -356,8 +357,8 @@
           <a class="mt-4" target="WorkflowProgress" href={{worflowProgressUrl}}>Workflow Progress</a>
           <button pButton pRipple type="button" class="mx-3" icon="pi pi-chevron-left" label="Back" iconPos="left"
             (click)="back()"></button>
-          <button pButton pRipple type="button" icon="pi" label="Complete" iconPos="right"
-            (click)="caseComplete()"></button>
+          <button pButton pRipple type="button" icon="pi" label="Complete" iconPos="right" (click)="caseComplete()"
+            [disabled]="caseCompleted"></button>
         </div>
       </p-card>
     </div>
