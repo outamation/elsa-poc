@@ -190,10 +190,11 @@ export class AppComponent implements OnInit {
         console.log('Post Response', data);
         if (data.startedWorkflows.length > 0) {
           this.showSuccess(`Case step '${step.stepName}' is completed successfully.`);
-          this.caseStepTasks.map((x: { stepName: string; stepSignal: string; completed: boolean; disabled: boolean; }) => {
+          this.caseStepTasks.map((x: { stepName: string; stepSignal: string; completed: boolean; disabled: boolean; overdue: boolean; }) => {
             if (x.stepSignal === step.stepSignal) {
               x.stepName = x.stepName.replace(' - OverDue', '') + ' - Complete';
               x.completed = true;
+              x.overdue = false;
             }
             if (step.stepSignal === 'FCTitleOrdered') {
               x.disabled = false;
