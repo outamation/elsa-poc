@@ -109,15 +109,26 @@ export class AppComponent implements OnInit {
   reforecastStepTasks() {
     this.httpGet(this.workflowStart);
     this.setCaseStepTasks();
+    this.overDueSteps();
   }
   caseCreate() {
     if (!this.worflowInstanceId) {
       this.httpGet(this.workflowStart);
       this.showSuccess("Case is created successfully, Please proceed with case steps.");
     }
+    this.overDueSteps();
     this.next();
   }
 
+  overDueSteps() {
+    setTimeout(() => {
+      this.caseStepTasks.map((x: { stepName: string; stepSignal: string; completed: boolean; disabled: boolean; }) => {
+        if (x.stepSignal === 'FCSCRAEligibilityReview') {
+          x.stepName = x.stepName + ' - OverDue';
+        }
+      });
+    }, 60 * 1000);
+  }
   caseStepsComplete() {
     this.isWorkflowComplete();
   }
@@ -152,13 +163,16 @@ export class AppComponent implements OnInit {
   }
 
   isWorkflowComplete() {
-    this.http.get(this.workflowURL + "/v1/workflow-instances/" + this.worflowInstanceId, { responseType: 'text' })
-      .subscribe((data) => {
+    this.http.get(this.workflowURL + "/v1/workflow-instances/" + this.worflowInstanceId)
+      .subscribe((data: any) => {
         console.log(data);
-        // if(data.workflowStatus==="Finished"){
-        this.showSuccess("All the Case steps are Complete, the case can be marked complete.");
-        this.next();
-      })
+        if (data.workflowStatus === "Finished") {
+          this.showSuccess("All the Case steps are Complete, the case can be marked complete.");
+          this.next();
+        } else {
+          this.showError("Before Case Completion, Please make sure that all case steps are Complete.");
+        }
+      });
   }
 
   httpPost(step: any) {
@@ -167,25 +181,28 @@ export class AppComponent implements OnInit {
     this.http.post<any>(`${this.workflowURL}/v1/custom-signals/${step.stepSignal}/execute`, { workflowInstanceId: this.worflowInstanceId })
       .subscribe(data => {
         console.log('Post Response', data);
-        this.showSuccess(`Case step '${step.stepName}' is completed successfully.`);
-        this.caseStepTasks.map((x: { stepName: string; stepSignal: string; completed: boolean; disabled: boolean; }) => {
-          if (x.stepSignal === step.stepSignal) {
-            x.stepName = x.stepName + ' - Complete';
-            x.completed = true;
-          }
-          if (step.stepSignal === 'FCTitleOrdered') {
-            x.disabled = false;
-            if (x.stepSignal === 'FCSCRAEligibilityReview') {
-              x.disabled = true;
+        if (data.startedWorkflows.length > 0) {
+          this.showSuccess(`Case step '${step.stepName}' is completed successfully.`);
+          this.caseStepTasks.map((x: { stepName: string; stepSignal: string; completed: boolean; disabled: boolean; }) => {
+            if (x.stepSignal === step.stepSignal) {
+              x.stepName = x.stepName.replace(' - OverDue', '') + ' - Complete';
+              x.completed = true;
             }
-          }
-          if (step.stepSignal === 'FCSCRAEligibilityReview') {
-            if (x.stepSignal === 'FCTitleOrdered') {
-              x.disabled = true;
+            if (step.stepSignal === 'FCTitleOrdered') {
+              x.disabled = false;
+              if (x.stepSignal === 'FCSCRAEligibilityReview') {
+                x.disabled = true;
+              }
             }
-          }
-        });
-
+            if (step.stepSignal === 'FCSCRAEligibilityReview') {
+              if (x.stepSignal === 'FCTitleOrdered') {
+                x.disabled = true;
+              }
+            }
+          });
+        } else {
+          this.showError(`Case step '${step.stepName}' cannot be is completed, please check dependent steps and try again.`);
+        }
       })
   }
 }
