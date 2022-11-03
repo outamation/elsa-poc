@@ -1,0 +1,365 @@
+<!-- <p-progressSpinner></p-progressSpinner> -->
+<p-toast position="top-right"></p-toast>
+<div class="grid mx-3">
+  <div class="col-10">
+    <div class="via-heading">
+      <img class="via-icon mr-2" src="../assets/via.webp" /><span>Legal Case Management - {{title}}</span>
+    </div>
+  </div>
+  <div class="col-2 mt-3 flex justify-content-end flex-wrap">
+    <span>{{case.User}}</span>
+  </div>
+</div>
+<div class="grid m-3 mt-0">
+  <div class="col-fixed" style="width:225px">
+    <p-menu [model]="menuItems"></p-menu>
+  </div>
+  <div class="col">
+    <div class="p-3 mb-3" style="background:white">
+      <p-steps [model]="stepItems" [(activeIndex)]="activeIndex"></p-steps>
+    </div>
+    <div>
+      <p-card *ngIf="activeIndex==0" header="Create Case"
+        subheader="Select case parameters and create case to go to next steps.">
+        <div class="card">
+          <div class="formgrid grid">
+            <div class="field col-12 md:col-3">
+              <label for="fileid" class="font-bold">File</label>
+              <input id="fileid" type="text" disabled value="Test-File-XYZ"
+                class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+            </div>
+            <div class="field col-12 md:col-3">
+              <label for="filetype" class="font-bold">File Type</label>
+              <input id="filetype" type="text" disabled value="Default Servicing"
+                class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+            </div>
+            <div class="field col-3 md:col-3">
+              <label for="invtype" class="font-bold">Inv Type</label>
+              <select id="invtype"
+                class="w-full text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary"
+                style="appearance: auto">
+                <option selected>FHA</option>
+                <option>VA</option>
+                <option>Fannie Mae</option>
+                <option>Freddie Mac</option>
+                <option>Other</option>
+              </select>
+            </div>
+            <div class="field col-12 md:col-3">
+              <label for="loan" class="font-bold">Loan</label>
+              <input id="loan" type="text" disabled value="123456789"
+                class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+            </div>
+            <div class="field col-3 md:col-3">
+              <label for="zip" class="font-bold">Case</label>
+              <input id="zip" type="text" [(ngModel)]="case.Case"
+                class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+            </div>
+            <div class="field col-3 md:col-3">
+              <label for="casetype" class="font-bold">Case Type</label>
+              <select id="casetype"
+                class="w-full text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary"
+                style="appearance: auto">
+                <option value="100064">Bankruptcy</option>
+                <option value="100104">DIL</option>
+                <option value="2">Eviction</option>
+                <option value="10" selected>Foreclosure</option>
+                <option value="100142">Litigation</option>
+                <option value="100120">Loss Mitigation</option>
+                <option value="100004">REO</option>
+                <option value="100006">Replevin</option>
+                <option value="100121">Title</option>
+              </select>
+            </div>
+            <div class="field col-3 md:col-3">
+              <label for="user" class="font-bold">User</label>
+              <input id="user" type="text" [(ngModel)]="case.User"
+                class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+            </div>
+            <div class="field col-3 md:col-3">
+              <label for="atty" class="font-bold">Atty</label>
+              <input id="atty" type="text" [(ngModel)]="case.Atty"
+                class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+            </div>
+            <div class="field col-3">
+              <label for="address" class="font-bold">Property Address</label>
+              <textarea id="address" type="text" rows="2" [(ngModel)]="case.Address"
+                class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"></textarea>
+            </div>
+            <div class="field col-2 md:col-3">
+              <label for="city" class="font-bold">City</label>
+              <input id="city" type="text" [(ngModel)]="case.City"
+                class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+            </div>
+            <div class="field col-2 md:col-3">
+              <label for="state" class="font-bold">State</label>
+              <select id="state"
+                class="w-full text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary"
+                style="appearance: auto">
+                <option>Alaska</option>
+                <option>Arizona</option>
+                <option>Arkansas</option>
+                <option>Califonria</option>
+                <option>Colorado</option>
+                <option>Connecticut</option>
+                <option>Delaware</option>
+                <option>Dictrict of Columbia</option>
+                <option selected>Florida</option>
+                <option>Georgia</option>
+                <option>Hawaii</option>
+                <option>Idaho</option>
+                <option>Illinois</option>
+                <option>Indiana</option>
+                <option>Iowa</option>
+                <option>Kansas</option>
+                <option>Kentucky</option>
+                <option>Louisiana</option>
+                <option>Maine</option>
+                <option>Maryland</option>
+                <option>Massachusetts</option>
+                <option>Michigan</option>
+                <option>Minnesota</option>
+                <option>Mississippi</option>
+                <option>Missouri</option>
+                <option>Montana</option>
+                <option>Nebraska</option>
+                <option>Nevada</option>
+                <option>New Hampshire</option>
+                <option>New Jersey</option>
+                <option>New Mexico</option>
+                <option>New York</option>
+                <option>North Carolina</option>
+                <option>North Dakota</option>
+                <option>Ohio</option>
+                <option>Oklahoma</option>
+                <option>Oregon</option>
+                <option>Pennsylvania</option>
+                <option>Rhode Island</option>
+                <option>South Carolina</option>
+                <option>South Dakota</option>
+                <option>Tennessee</option>
+                <option>Texas</option>
+                <option>Utah</option>
+                <option>Vermont</option>
+                <option>Virginia</option>
+                <option>Washington</option>
+                <option>West Virginia</option>
+                <option>Wisconsin</option>
+                <option>Wyoming</option>
+              </select>
+            </div>
+            <div class="field col-2 md:col-3">
+              <label for="county" class="font-bold">County</label>
+              <select id="county"
+                class="w-full text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary"
+                style="appearance: auto">
+                <option>Alachua County</option>
+                <option>Baker County</option>
+                <option selected>Bay County</option>
+                <option>Duval County</option>
+                <option>Miami-Dade County</option>
+              </select>
+            </div>
+            <div class="field col-2 md:col-3">
+              <label for="zip" class="font-bold">Zip</label>
+              <input id="zip" type="text" [(ngModel)]="case.Zip"
+                class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+            </div>
+
+            <div class="field col-12">
+              <label for="address" class="font-bold">Notes</label>
+              <textarea id="address" type="text" rows="2"
+                class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"></textarea>
+            </div>
+          </div>
+        </div>
+        <div class="flex justify-content-end flex-wrap card-container green-container">
+          <button class="" pButton pRipple type="button" icon="pi pi-chevron-right" label="Next" iconPos="right"
+            (click)="caseCreate()"></button>
+        </div>
+      </p-card>
+      <p-card *ngIf="activeIndex==1" header="Case Steps"
+        subheader="Please complete below Case Steps one by one, you can also add a note.">
+        <div class="formgrid grid">
+          <div class="field col-2 md:col-3">
+            <label for="fileid" class="font-bold">File: </label>
+            <label for="fileid" class="pl-2">{{case.File}}</label>
+          </div>
+          <div class="field col-2 md:col-3">
+            <label for="fileid" class="font-bold">File Type: </label>
+            <label for="fileid" class="pl-2">{{case.FileType}}</label>
+          </div>
+          <div class="field col-2 md:col-3">
+            <label for="fileid" class="font-bold">Inv Type: </label>
+            <label for="fileid" class="pl-2">{{case.InvType}}</label>
+          </div>
+          <div class="field col-2 md:col-3">
+            <label for="fileid" class="font-bold">Loan: </label>
+            <label for="fileid" class="pl-2">{{case.Loan}}</label>
+          </div>
+          <div class="field col-2 md:col-3">
+            <label for="fileid" class="font-bold">Case: </label>
+            <label for="fileid" class="pl-2">{{case.Case}}</label>
+          </div>
+          <div class="field col-2 md:col-3">
+            <label for="fileid" class="font-bold">Case Type: </label>
+            <label for="fileid" class="pl-2">{{case.CaseType}}</label>
+          </div>
+          <div class="field col-2 md:col-3">
+            <label for="fileid" class="font-bold">User: </label>
+            <label for="fileid" class="pl-2">{{case.User}}</label>
+          </div>
+          <div class="field col-2 md:col-3">
+            <label for="fileid" class="font-bold">Atty: </label>
+            <label for="fileid" class="pl-2">{{case.Atty}}</label>
+          </div>
+          <div class="ml-2 mb-3">
+            <label for="fileid" class="font-bold">Property Address: </label>
+            <label for="fileid" class="pl-2">{{case.Address}} {{case.City}} {{case.State}} {{case.County}}
+              {{case.Zip}}</label>
+          </div>
+        </div>
+        <div class="mb-3">
+          <p-accordion>
+            <p-accordionTab *ngFor="let step of caseStepTasks" [header]="step.stepName" [disabled]="step.disabled">
+              <div class="formgrid grid">
+                <div class="field col-3 md:col-3">
+                  <label for="fileid" class="font-bold">Target Complete Date</label>
+                  <input id="fileid" type="text" value="11/07/2022"
+                    class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+                </div>
+                <div class="field col-3 md:col-3">
+                  <label for="fileid" class="font-bold">End Date</label>
+                  <input id="fileid" type="text" value="11/07/2022"
+                    class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+                </div>
+                <div class="field col-2 md:col-3">
+                  <label for="vendor" class="font-bold">Vendor</label>
+                  <select id="vendor"
+                    class="w-full text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary"
+                    style="appearance: auto">
+                    <option>Alachua County</option>
+                    <option>Baker County</option>
+                    <option selected>Bay County</option>
+                    <option>Duval County</option>
+                    <option>Miami-Dade County</option>
+                  </select>
+                </div>
+                <div class="field col-2 md:col-3">
+                  <label for="client" class="font-bold">Client</label>
+                  <select id="client"
+                    class="w-full text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary"
+                    style="appearance: auto">
+                    <option>Abey Firm</option>
+                    <option>Default Client</option>
+                    <option selected>ABC Mortgage</option>
+                  </select>
+                </div>
+                <div class="field col-3 md:col-3" *ngIf="step.stepSignal === 'HUDFirstActionExpires'">
+                  <label for="fileid" class="font-bold">Date of Default</label>
+                  <input id="fileid" type="text" value="11/07/2022"
+                    class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+                </div>
+                <div class="field col-3 md:col-3" *ngIf="step.stepSignal === 'HUDFirstActionExpires'">
+                  <label for="fileid" class="font-bold">Date of BK Release Date</label>
+                  <input id="fileid" type="text" value="11/07/2022"
+                    class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+                </div>
+                <div class="field col-3 md:col-3" *ngIf="step.stepSignal === 'HUDFirstActionExpires'">
+                  <label for="fileid" class="font-bold">Date of Loss Mitigation Failure</label>
+                  <input id="fileid" type="text" value="11/07/2022"
+                    class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+                </div>
+                <div class="field col-3 md:col-3" *ngIf="step.stepSignal === 'HUDFirstActionExpires'">
+                  <label for="fileid" class="font-bold">Date of Vacancy</label>
+                  <input id="fileid" type="text" value="11/07/2022"
+                    class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+                </div>
+                <div class="field col-6">
+                  <label for="address" class="font-bold">Notes</label>
+                  <textarea id="address" type="text" rows="2"
+                    class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"></textarea>
+                </div>
+                <div class="field col-2 md:col-3">
+                  <label for="showNote" class="font-bold">Show Note on Case View</label>
+                  <select id="showNote"
+                    class="w-full text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary"
+                    style="appearance: auto">
+                    <option>Yes</option>
+                    <option selected>No</option>
+                  </select>
+                </div>
+                <div class="field col-2 md:col-3 mt-4">
+                  <button pButton pRipple type="button" [disabled]="step.completed" icon="pi pi-save" label="Save"
+                    (click)="httpPost(step)" iconPos="left"></button>
+                </div>
+              </div>
+            </p-accordionTab>
+          </p-accordion>
+        </div>
+        <div class="flex justify-content-end flex-wrap card-container green-container">
+          <button pButton pRipple type="button" class="mx-3" icon="pi pi-replay" label="Reforecast" iconPos="left"
+            (click)="reforecastStepTasks()"></button>
+
+          <a class="mt-4" target="WorkflowProgress" href={{worflowProgressUrl}}>Workflow Progress</a>
+
+          <button pButton pRipple type="button" class="mx-3" icon="pi pi-chevron-left" label="Back" iconPos="left"
+            (click)="back()"></button>
+
+          <button pButton pRipple type="button" icon="pi pi-chevron-right" label="Next" (click)="caseStepsComplete()"
+            iconPos="right"></button>
+        </div>
+      </p-card>
+      <p-card *ngIf="activeIndex==2" header="Case Complete"
+        subheader="When all required Case Steps are completed, the case can be closed.">
+        <div class="flex justify-content-end flex-wrap card-container green-container">
+          <div class="formgrid grid">
+            <div class="field col-2 md:col-3">
+              <label for="fileid" class="font-bold">File: </label>
+              <label for="fileid" class="pl-2">{{case.File}}</label>
+            </div>
+            <div class="field col-2 md:col-3">
+              <label for="fileid" class="font-bold">File Type: </label>
+              <label for="fileid" class="pl-2">{{case.FileType}}</label>
+            </div>
+            <div class="field col-2 md:col-3">
+              <label for="fileid" class="font-bold">Inv Type: </label>
+              <label for="fileid" class="pl-2">{{case.InvType}}</label>
+            </div>
+            <div class="field col-2 md:col-3">
+              <label for="fileid" class="font-bold">Loan: </label>
+              <label for="fileid" class="pl-2">{{case.Loan}}</label>
+            </div>
+            <div class="field col-2 md:col-3">
+              <label for="fileid" class="font-bold">Case: </label>
+              <label for="fileid" class="pl-2">{{case.Case}}</label>
+            </div>
+            <div class="field col-2 md:col-3">
+              <label for="fileid" class="font-bold">Case Type: </label>
+              <label for="fileid" class="pl-2">{{case.CaseType}}</label>
+            </div>
+            <div class="field col-2 md:col-3">
+              <label for="fileid" class="font-bold">User: </label>
+              <label for="fileid" class="pl-2">{{case.User}}</label>
+            </div>
+            <div class="field col-2 md:col-3">
+              <label for="fileid" class="font-bold">Atty: </label>
+              <label for="fileid" class="pl-2">{{case.Atty}}</label>
+            </div>
+            <div class="ml-2 mb-3">
+              <label for="fileid" class="font-bold">Property Address: </label>
+              <label for="fileid" class="pl-2">{{case.Address}} {{case.City}} {{case.State}} {{case.County}}
+                {{case.Zip}}</label>
+            </div>
+          </div>
+
+          <a class="mt-4" target="WorkflowProgress" href={{worflowProgressUrl}}>Workflow Progress</a>
+          <button pButton pRipple type="button" class="mx-3" icon="pi pi-chevron-left" label="Back" iconPos="left"
+            (click)="back()"></button>
+          <button pButton pRipple type="button" icon="pi" label="Complete" iconPos="right"
+            (click)="caseComplete()"></button>
+        </div>
+      </p-card>
+    </div>
+  </div>
+</div>

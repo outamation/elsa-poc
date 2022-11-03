@@ -5,6 +5,8 @@ VisualStudioVersion = 17.1.32228.430
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ElsaQuickstarts.Server.DashboardAndServer", "ElsaQuickstarts.Server.DashboardAndServer.csproj", "{A66695B9-7191-478D-A796-F1A91544657B}"
 EndProject
+Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "ng-src", "..\ng-src\ng-src.esproj", "{B1665B5E-4E5A-4961-A3C2-DCC4F9EB85F1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,12 @@ Global
 		{A66695B9-7191-478D-A796-F1A91544657B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A66695B9-7191-478D-A796-F1A91544657B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A66695B9-7191-478D-A796-F1A91544657B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B1665B5E-4E5A-4961-A3C2-DCC4F9EB85F1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B1665B5E-4E5A-4961-A3C2-DCC4F9EB85F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B1665B5E-4E5A-4961-A3C2-DCC4F9EB85F1}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{B1665B5E-4E5A-4961-A3C2-DCC4F9EB85F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B1665B5E-4E5A-4961-A3C2-DCC4F9EB85F1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B1665B5E-4E5A-4961-A3C2-DCC4F9EB85F1}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
