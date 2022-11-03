@@ -38,9 +38,12 @@ builder.Services.AddCors(options =>
 });
 
 builder.Services.AddTransient<ICustomSignaler, CustomSignaler>();
+builder.Services.AddBookmarkProvider<ReferralReceivedBookmarkProvider<FileReferred>>();
 builder.Services.AddBookmarkProvider<ReferralReceivedBookmarkProvider<FileReceived>>();
-builder.Services.AddBookmarkProvider<ReferralReceivedBookmarkProvider<ReferralReceived>>();
-builder.Services.AddBookmarkProvider<ReferralReceivedBookmarkProvider<TitleOrdered>>();
+builder.Services.AddBookmarkProvider<ReferralReceivedBookmarkProvider<FCTitleOrdered>>();
+builder.Services.AddBookmarkProvider<ReferralReceivedBookmarkProvider<FCSCRAEligibilityReview>>();
+builder.Services.AddBookmarkProvider<ReferralReceivedBookmarkProvider<TitleReportReceived>>();
+builder.Services.AddBookmarkProvider<ReferralReceivedBookmarkProvider<PreliminaryTitleClear>>();
 builder.Services.AddBookmarkProvider<ReferralReceivedBookmarkProvider<ComplaintFiled>>();
 
 //builder.Services.AddBookmarkProvider<FileReceivedBookmarkProvider>();

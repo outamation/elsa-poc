@@ -19,19 +19,18 @@ namespace ElsaQuickstarts.Server.DashboardAndServer
     }
 
     //[Activity(Category = "VIA", DisplayName = "Referral received")]
-    [Trigger(Category = "VIA", DisplayName = "Referral received", Description = "Suspend workflow execution until the specified signal is received.", Outcomes = new string[] { "Done" })]
-    public class ReferralReceived : CaseStep
+    [Trigger(Category = "VIA", DisplayName = "File Referred To Attorney", Description = "Suspend workflow execution until the specified signal is received.", Outcomes = new string[] { "Done" })]
+    public class FileReferred : CaseStep
     {
-        [ActivityInput(Hint = "Select target date.", DefaultValue = "11/7/2022")]
-        public string? TargetDate { get; set; }
-
-        //public ReferralReceived()
-        //{
-        //    this.Signal = nameof(ReferralReceived);
-        //}
+        [ActivityInput(Hint = "The name of the signal to wait for.", DefaultValue = nameof(FileReferred), IsReadOnly = true, SupportedSyntaxes = new[] { SyntaxNames.JavaScript, SyntaxNames.Liquid })]
+        public new string Signal
+        {
+            get { return base.Signal; }
+            set { base.Signal = value; }
+        }
     }
 
-    [Trigger(Category = "VIA", DisplayName = "File received", Description = "Suspend workflow execution until the specified signal is received.", Outcomes = new string[] { "Done" })]
+    [Trigger(Category = "VIA", DisplayName = "File Received By Attorney", Description = "Suspend workflow execution until the specified signal is received.", Outcomes = new string[] { "Done" })]
     public class FileReceived : CaseStep
     {
         [ActivityInput(Hint = "The name of the signal to wait for.", DefaultValue = nameof(FileReceived), IsReadOnly = true, SupportedSyntaxes = new[] { SyntaxNames.JavaScript, SyntaxNames.Liquid })]
@@ -42,10 +41,43 @@ namespace ElsaQuickstarts.Server.DashboardAndServer
         }
     }
 
-    [Trigger(Category = "VIA", DisplayName = "Title Ordered", Description = "Suspend workflow execution until the specified signal is received.", Outcomes = new string[] { "Done" })]
-    public class TitleOrdered : CaseStep
+    [Trigger(Category = "VIA", DisplayName = "FC Title Ordered", Description = "Suspend workflow execution until the specified signal is received.", Outcomes = new string[] { "Done" })]
+    public class FCTitleOrdered : CaseStep
     {
-        [ActivityInput(Hint = "The name of the signal to wait for.", DefaultValue = nameof(TitleOrdered), IsReadOnly = true, SupportedSyntaxes = new[] { SyntaxNames.JavaScript, SyntaxNames.Liquid })]
+        [ActivityInput(Hint = "The name of the signal to wait for.", DefaultValue = nameof(FCTitleOrdered), IsReadOnly = true, SupportedSyntaxes = new[] { SyntaxNames.JavaScript, SyntaxNames.Liquid })]
+        public new string Signal
+        {
+            get { return base.Signal; }
+            set { base.Signal = value; }
+        }
+    }
+
+    [Trigger(Category = "VIA", DisplayName = "FC SCRA Eligibility Review", Description = "Suspend workflow execution until the specified signal is received.", Outcomes = new string[] { "Done" })]
+    public class FCSCRAEligibilityReview : CaseStep
+    {
+        [ActivityInput(Hint = "The name of the signal to wait for.", DefaultValue = nameof(FCSCRAEligibilityReview), IsReadOnly = true, SupportedSyntaxes = new[] { SyntaxNames.JavaScript, SyntaxNames.Liquid })]
+        public new string Signal
+        {
+            get { return base.Signal; }
+            set { base.Signal = value; }
+        }
+    }
+
+    [Trigger(Category = "VIA", DisplayName = "Title Report Received", Description = "Suspend workflow execution until the specified signal is received.", Outcomes = new string[] { "Done" })]
+    public class TitleReportReceived : CaseStep
+    {
+        [ActivityInput(Hint = "The name of the signal to wait for.", DefaultValue = nameof(TitleReportReceived), IsReadOnly = true, SupportedSyntaxes = new[] { SyntaxNames.JavaScript, SyntaxNames.Liquid })]
+        public new string Signal
+        {
+            get { return base.Signal; }
+            set { base.Signal = value; }
+        }
+    }
+
+    [Trigger(Category = "VIA", DisplayName = "Preliminary Title Clear", Description = "Suspend workflow execution until the specified signal is received.", Outcomes = new string[] { "Done" })]
+    public class PreliminaryTitleClear : CaseStep
+    {
+        [ActivityInput(Hint = "The name of the signal to wait for.", DefaultValue = nameof(PreliminaryTitleClear), IsReadOnly = true, SupportedSyntaxes = new[] { SyntaxNames.JavaScript, SyntaxNames.Liquid })]
         public new string Signal
         {
             get { return base.Signal; }
