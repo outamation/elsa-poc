@@ -38,9 +38,13 @@ builder.Services.AddCors(options =>
 });
 
 builder.Services.AddTransient<ICustomSignaler, CustomSignaler>();
-builder.Services.AddBookmarkProvider<ReferralReceivedBookmarkProvider>();
-builder.Services.AddBookmarkProvider<FileReceivedBookmarkProvider>();
-builder.Services.AddBookmarkProvider<TitleOrderedBookmarkProvider>();
+builder.Services.AddBookmarkProvider<ReferralReceivedBookmarkProvider<FileReceived>>();
+builder.Services.AddBookmarkProvider<ReferralReceivedBookmarkProvider<ReferralReceived>>();
+builder.Services.AddBookmarkProvider<ReferralReceivedBookmarkProvider<TitleOrdered>>();
+builder.Services.AddBookmarkProvider<ReferralReceivedBookmarkProvider<ComplaintFiled>>();
+
+//builder.Services.AddBookmarkProvider<FileReceivedBookmarkProvider>();
+//builder.Services.AddBookmarkProvider<TitleOrderedBookmarkProvider>();
 
 // Elsa API endpoints.
 builder.Services.AddElsaApiEndpoints();

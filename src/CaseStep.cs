@@ -52,4 +52,15 @@ namespace ElsaQuickstarts.Server.DashboardAndServer
             set { base.Signal = value; }
         }
     }
+
+    [Trigger(Category = "VIA", DisplayName = "Complaint Filed", Description = "Suspend workflow execution until the specified signal is received.", Outcomes = new string[] { "Done" })]
+    public class ComplaintFiled : CaseStep
+    {
+        [ActivityInput(Hint = "The name of the signal to wait for.", DefaultValue = nameof(ComplaintFiled), IsReadOnly = true, SupportedSyntaxes = new[] { SyntaxNames.JavaScript, SyntaxNames.Liquid })]
+        public new string Signal
+        {
+            get { return base.Signal; }
+            set { base.Signal = value; }
+        }
+    }
 }

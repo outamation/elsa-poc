@@ -10,11 +10,11 @@ using System.Threading.Tasks;
 
 namespace Elsa.Workflows.CustomActivities.Signals.Bookmark
 {
-    public class ReferralReceivedBookmarkProvider : BookmarkProvider<ReferralReceivedBookmark, ReferralReceived>
+    public class ReferralReceivedBookmarkProvider<T> : BookmarkProvider<ReferralReceivedBookmark, T> where T : SignalReceived
     {
-        public override async ValueTask<IEnumerable<BookmarkResult>> GetBookmarksAsync(BookmarkProviderContext<ReferralReceived> context, CancellationToken cancellationToken) => await GetBookmarksInternalAsync(context, cancellationToken).ToListAsync(cancellationToken);
+        public override async ValueTask<IEnumerable<BookmarkResult>> GetBookmarksAsync(BookmarkProviderContext<T> context, CancellationToken cancellationToken) => await GetBookmarksInternalAsync(context, cancellationToken).ToListAsync(cancellationToken);
 
-        private async IAsyncEnumerable<BookmarkResult> GetBookmarksInternalAsync(BookmarkProviderContext<ReferralReceived> context, [EnumeratorCancellation] CancellationToken cancellationToken)
+        private async IAsyncEnumerable<BookmarkResult> GetBookmarksInternalAsync(BookmarkProviderContext<T> context, [EnumeratorCancellation] CancellationToken cancellationToken)
         {
             var signalName = (await context.ReadActivityPropertyAsync(x => x.Signal, cancellationToken))?.ToLowerInvariant().Trim();
 

@@ -71,30 +71,16 @@ namespace Elsa.Activities.Signaling.Services
 
             var tenantId = await _tenantAccessor.GetTenantIdAsync();
 
-            if (signal == "ReferralReceived")
-            {
-                var wf = await _workflowLaunchpad.CollectAndExecuteWorkflowsAsync(new WorkflowsQuery(
-                signal,
-                new ReferralReceivedBookmark { Signal = normalizedSignal },
-                correlationId,
-                workflowInstanceId,
-                default,
-                tenantId
-                ), new WorkflowInput(new Signal(normalizedSignal, input)), cancellationToken);
-                return wf;
-            }
-            else
-            {
-                var wf = await _workflowLaunchpad.CollectAndExecuteWorkflowsAsync(new WorkflowsQuery(
-                signal,
-                new FileReceivedBookmark { Signal = normalizedSignal },
-                correlationId,
-                workflowInstanceId,
-                default,
-                tenantId
-                 ), new WorkflowInput(new Signal(normalizedSignal, input)), cancellationToken);
-                return wf;
-            }
+
+            var wf = await _workflowLaunchpad.CollectAndExecuteWorkflowsAsync(new WorkflowsQuery(
+            signal,
+            new FileReceivedBookmark { Signal = normalizedSignal },
+            correlationId,
+            workflowInstanceId,
+            default,
+            tenantId
+             ), new WorkflowInput(new Signal(normalizedSignal, input)), cancellationToken);
+            return wf;
 
 
         }
