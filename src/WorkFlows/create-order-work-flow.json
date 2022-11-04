@@ -1,10 +1,10 @@
 {
   "$id": "1",
-  "definitionId": "4911970371fd4dc6b732bfbbca8b3dca",
-  "versionId": "e7521891d9164c4b819489b48bc87f00",
+  "definitionId": "d2fbed7e02044dadbfae5e45065fb5b6",
+  "versionId": "9d29581d114840d681f467c5541be8fc",
   "name": "Create Order Work Flow",
   "displayName": "Create Order WorkFlow",
-  "version": 6,
+  "version": 1,
   "variables": {
     "$id": "2",
     "data": {}
@@ -16,9 +16,9 @@
   "isSingleton": false,
   "persistenceBehavior": "WorkflowBurst",
   "deleteCompletedInstances": false,
-  "isPublished": false,
+  "isPublished": true,
   "isLatest": true,
-  "createdAt": "2022-11-04T19:28:34.7487841Z",
+  "createdAt": "2022-11-04T20:14:46.4885537Z",
   "activities": [
     {
       "$id": "4",
@@ -576,7 +576,7 @@
           "syntax": "Liquid",
           "expressions": {
             "$id": "124",
-            "Liquid": "{{WorkflowInstanceId}}"
+            "Liquid": "{\r\n  \"workflowInstanceId\":  \"{{WorkflowInstanceId}}\",\r\n  \"workflowDefinitionId\":  \"{{ WorkflowDefinitionId }}\"\r\n}\r\n\r\n"
           }
         },
         {
@@ -584,7 +584,7 @@
           "name": "ContentType",
           "expressions": {
             "$id": "126",
-            "Literal": "text/plain"
+            "Literal": "application/json"
           }
         },
         {
@@ -801,5 +801,5 @@
       "outcome": "Done"
     }
   ],
-  "id": "e7521891d9164c4b819489b48bc87f00"
+  "id": "9d29581d114840d681f467c5541be8fc"
 }
