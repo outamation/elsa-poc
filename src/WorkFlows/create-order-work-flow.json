@@ -1,0 +1,692 @@
+{
+  "$id": "1",
+  "definitionId": "a3fe1870c7ad474bbc5eb3183f94eb6e",
+  "versionId": "b36c4f6f7b614301afa8335be8cf8a15",
+  "name": "Create Order Work Flow",
+  "displayName": "Create Order WorkFlow",
+  "version": 1,
+  "variables": {
+    "$id": "2",
+    "data": {}
+  },
+  "customAttributes": {
+    "$id": "3",
+    "data": {}
+  },
+  "isSingleton": false,
+  "persistenceBehavior": "WorkflowBurst",
+  "deleteCompletedInstances": false,
+  "isPublished": false,
+  "isLatest": true,
+  "createdAt": "2022-11-04T15:56:08.3818554Z",
+  "activities": [
+    {
+      "$id": "4",
+      "activityId": "98e17bc1-8aae-439e-a013-f7d428db83ed",
+      "type": "HttpEndpoint",
+      "name": "Create Order",
+      "displayName": "Create Order",
+      "persistWorkflow": false,
+      "loadWorkflowContext": false,
+      "saveWorkflowContext": false,
+      "properties": [
+        {
+          "$id": "5",
+          "name": "Path",
+          "expressions": {
+            "$id": "6",
+            "Literal": "/condo"
+          }
+        },
+        {
+          "$id": "7",
+          "name": "Methods",
+          "expressions": {
+            "$id": "8",
+            "Json": "[\"POST\"]"
+          }
+        },
+        {
+          "$id": "9",
+          "name": "ReadContent",
+          "expressions": {
+            "$id": "10",
+            "Literal": "true"
+          }
+        },
+        {
+          "$id": "11",
+          "name": "TargetType",
+          "expressions": {
+            "$id": "12"
+          }
+        },
+        {
+          "$id": "13",
+          "name": "Schema",
+          "syntax": "Literal",
+          "expressions": {
+            "$id": "14",
+            "Literal": ""
+          }
+        },
+        {
+          "$id": "15",
+          "name": "Authorize",
+          "expressions": {
+            "$id": "16"
+          }
+        },
+        {
+          "$id": "17",
+          "name": "Policy",
+          "expressions": {
+            "$id": "18"
+          }
+        }
+      ],
+      "propertyStorageProviders": {
+        "$id": "19"
+      }
+    },
+    {
+      "$id": "20",
+      "activityId": "c277d471-ac97-4173-8947-3471f3bf7cb8",
+      "type": "SetVariable",
+      "displayName": "Set Variable",
+      "persistWorkflow": false,
+      "loadWorkflowContext": false,
+      "saveWorkflowContext": false,
+      "properties": [
+        {
+          "$id": "21",
+          "name": "VariableName",
+          "expressions": {
+            "$id": "22",
+            "Literal": "OrderInfo"
+          }
+        },
+        {
+          "$id": "23",
+          "name": "Value",
+          "syntax": "JavaScript",
+          "expressions": {
+            "$id": "24",
+            "JavaScript": "input.OrderInfo"
+          }
+        }
+      ],
+      "propertyStorageProviders": {
+        "$id": "25"
+      }
+    },
+    {
+      "$id": "26",
+      "activityId": "dd0ba9f8-b3f4-4c7d-9bf7-9eb372214075",
+      "type": "SendEmail",
+      "displayName": "Send Email",
+      "persistWorkflow": false,
+      "loadWorkflowContext": false,
+      "saveWorkflowContext": false,
+      "properties": [
+        {
+          "$id": "27",
+          "name": "From",
+          "expressions": {
+            "$id": "28",
+            "Literal": "donotreply@outamation.com"
+          }
+        },
+        {
+          "$id": "29",
+          "name": "To",
+          "syntax": "JavaScript",
+          "expressions": {
+            "$id": "30",
+            "Json": "[]",
+            "JavaScript": "Variables.OrderInfo.ApprovarEmail"
+          }
+        },
+        {
+          "$id": "31",
+          "name": "Subject",
+          "syntax": "Liquid",
+          "expressions": {
+            "$id": "32",
+            "Literal": "Order Created :  {{ Variables.Document.Author.Name }}",
+            "Liquid": "Order Created :  {{ Variables.OrderInfo.OrderName }}"
+          }
+        },
+        {
+          "$id": "33",
+          "name": "Attachments",
+          "expressions": {
+            "$id": "34"
+          }
+        },
+        {
+          "$id": "35",
+          "name": "Body",
+          "syntax": "Liquid",
+          "expressions": {
+            "$id": "36",
+            "Liquid": "Order Created : {{ Variables.OrderInfo.OrderName }} for review.<br>\r\n<a href=\"{{ \"Approve\" | signal_url }}\">Approve</a> or \r\n<a href=\"{{ \"Reject\" | signal_url }}\"\">Reject</a>"
+          }
+        },
+        {
+          "$id": "37",
+          "name": "Cc",
+          "expressions": {
+            "$id": "38"
+          }
+        },
+        {
+          "$id": "39",
+          "name": "Bcc",
+          "expressions": {
+            "$id": "40"
+          }
+        }
+      ],
+      "propertyStorageProviders": {
+        "$id": "41"
+      }
+    },
+    {
+      "$id": "42",
+      "activityId": "bcb9fe74-f780-4a50-aa5d-965de4a2216a",
+      "type": "Fork",
+      "displayName": "Fork",
+      "persistWorkflow": false,
+      "loadWorkflowContext": false,
+      "saveWorkflowContext": false,
+      "properties": [
+        {
+          "$id": "43",
+          "name": "Branches",
+          "expressions": {
+            "$id": "44",
+            "Json": "[\"Approve\",\"Reject\",\"Timer\"]"
+          }
+        }
+      ],
+      "propertyStorageProviders": {
+        "$id": "45"
+      }
+    },
+    {
+      "$id": "46",
+      "activityId": "f3909fde-f0a6-4337-be3b-60e9e328a54d",
+      "type": "SignalReceived",
+      "displayName": "Signal Received",
+      "persistWorkflow": false,
+      "loadWorkflowContext": false,
+      "saveWorkflowContext": false,
+      "properties": [
+        {
+          "$id": "47",
+          "name": "Signal",
+          "expressions": {
+            "$id": "48",
+            "Literal": "Approve"
+          }
+        }
+      ],
+      "propertyStorageProviders": {
+        "$id": "49"
+      }
+    },
+    {
+      "$id": "50",
+      "activityId": "2a12383c-0b9e-47e9-b68d-60995c160e2a",
+      "type": "SignalReceived",
+      "displayName": "Signal Received",
+      "persistWorkflow": false,
+      "loadWorkflowContext": false,
+      "saveWorkflowContext": false,
+      "properties": [
+        {
+          "$id": "51",
+          "name": "Signal",
+          "expressions": {
+            "$id": "52",
+            "Literal": "Reject"
+          }
+        }
+      ],
+      "propertyStorageProviders": {
+        "$id": "53"
+      }
+    },
+    {
+      "$id": "54",
+      "activityId": "9c1afa0c-f0ca-4678-8d70-104aab680668",
+      "type": "Timer",
+      "displayName": "Timer",
+      "persistWorkflow": false,
+      "loadWorkflowContext": false,
+      "saveWorkflowContext": false,
+      "properties": [
+        {
+          "$id": "55",
+          "name": "Timeout",
+          "syntax": "JavaScript",
+          "expressions": {
+            "$id": "56",
+            "JavaScript": "Duration.FromSeconds(10)"
+          }
+        }
+      ],
+      "propertyStorageProviders": {
+        "$id": "57"
+      }
+    },
+    {
+      "$id": "58",
+      "activityId": "35c786df-2865-4180-b126-4bea85c79e83",
+      "type": "SendEmail",
+      "displayName": "Send Email",
+      "persistWorkflow": false,
+      "loadWorkflowContext": false,
+      "saveWorkflowContext": false,
+      "properties": [
+        {
+          "$id": "59",
+          "name": "From",
+          "expressions": {
+            "$id": "60",
+            "Literal": "donotreply@outamation.com"
+          }
+        },
+        {
+          "$id": "61",
+          "name": "To",
+          "expressions": {
+            "$id": "62",
+            "Json": "[\"order-author@outamation.com\"]"
+          }
+        },
+        {
+          "$id": "63",
+          "name": "Subject",
+          "syntax": "Liquid",
+          "expressions": {
+            "$id": "64",
+            "Literal": "",
+            "Liquid": "Document {{ Variables.OrderInfo.OrderName }} Approved!"
+          }
+        },
+        {
+          "$id": "65",
+          "name": "Attachments",
+          "expressions": {
+            "$id": "66"
+          }
+        },
+        {
+          "$id": "67",
+          "name": "Body",
+          "syntax": "Liquid",
+          "expressions": {
+            "$id": "68",
+            "Liquid": "Thank you.\r\n\r\nYour order : {{ Variables.OrderInfo.OrderName }} is reviewed and approved by Approver.\r\n\r\nRegards,\r\nSupport Team."
+          }
+        },
+        {
+          "$id": "69",
+          "name": "Cc",
+          "expressions": {
+            "$id": "70"
+          }
+        },
+        {
+          "$id": "71",
+          "name": "Bcc",
+          "expressions": {
+            "$id": "72"
+          }
+        }
+      ],
+      "propertyStorageProviders": {
+        "$id": "73"
+      }
+    },
+    {
+      "$id": "74",
+      "activityId": "19bdc377-f34c-4b65-b456-8e56aba2042c",
+      "type": "SendEmail",
+      "displayName": "Send Email",
+      "persistWorkflow": false,
+      "loadWorkflowContext": false,
+      "saveWorkflowContext": false,
+      "properties": [
+        {
+          "$id": "75",
+          "name": "From",
+          "syntax": "Liquid",
+          "expressions": {
+            "$id": "76",
+            "Literal": "",
+            "Liquid": "{{Variable.OrderInfo.ReviewerEmail}}"
+          }
+        },
+        {
+          "$id": "77",
+          "name": "To",
+          "expressions": {
+            "$id": "78",
+            "Json": "[\"order-author@outamation.com\"]"
+          }
+        },
+        {
+          "$id": "79",
+          "name": "Subject",
+          "syntax": "Liquid",
+          "expressions": {
+            "$id": "80",
+            "Liquid": "Order Rejected : {{ Variables.OrderInfo.OrderName }} "
+          }
+        },
+        {
+          "$id": "81",
+          "name": "Attachments",
+          "expressions": {
+            "$id": "82"
+          }
+        },
+        {
+          "$id": "83",
+          "name": "Body",
+          "syntax": "Liquid",
+          "expressions": {
+            "$id": "84",
+            "Liquid": "\r\nThe below documents require corrections.\r\n\r\n1) CC&R\r\n2) Insurance Document\r\n3) Balance Sheet\r\n\r\nRegards,\r\n{{Variable.OrderInfo.ReviewerName}}"
+          }
+        },
+        {
+          "$id": "85",
+          "name": "Cc",
+          "expressions": {
+            "$id": "86"
+          }
+        },
+        {
+          "$id": "87",
+          "name": "Bcc",
+          "expressions": {
+            "$id": "88"
+          }
+        }
+      ],
+      "propertyStorageProviders": {
+        "$id": "89"
+      }
+    },
+    {
+      "$id": "90",
+      "activityId": "16dae479-2ed9-4a26-adca-9ebe497875a0",
+      "type": "SendEmail",
+      "displayName": "Send Email",
+      "persistWorkflow": false,
+      "loadWorkflowContext": false,
+      "saveWorkflowContext": false,
+      "properties": [
+        {
+          "$id": "91",
+          "name": "From",
+          "expressions": {
+            "$id": "92",
+            "Literal": "donotreply@outamation.com"
+          }
+        },
+        {
+          "$id": "93",
+          "name": "To",
+          "expressions": {
+            "$id": "94",
+            "Json": "[\"sagar@outamation.com\"]"
+          }
+        },
+        {
+          "$id": "95",
+          "name": "Subject",
+          "syntax": "Liquid",
+          "expressions": {
+            "$id": "96",
+            "Liquid": "{{ Variables.OrderName }} is waiting for your review!"
+          }
+        },
+        {
+          "$id": "97",
+          "name": "Attachments",
+          "expressions": {
+            "$id": "98"
+          }
+        },
+        {
+          "$id": "99",
+          "name": "Body",
+          "syntax": "Liquid",
+          "expressions": {
+            "$id": "100",
+            "Liquid": "Order Created : {{ Variables.OrderName }} for review.<br>\r\n<a href=\"{{ \"Approve\" | signal_url }}\">Approve</a> or \r\n<a href=\"{{ \"Reject\" | signal_url }}\"\">Reject</a>"
+          }
+        },
+        {
+          "$id": "101",
+          "name": "Cc",
+          "expressions": {
+            "$id": "102"
+          }
+        },
+        {
+          "$id": "103",
+          "name": "Bcc",
+          "expressions": {
+            "$id": "104"
+          }
+        }
+      ],
+      "propertyStorageProviders": {
+        "$id": "105"
+      }
+    },
+    {
+      "$id": "106",
+      "activityId": "afe93501-86bc-4a65-a879-4adeac7c09db",
+      "type": "Join",
+      "displayName": "Join",
+      "persistWorkflow": false,
+      "loadWorkflowContext": false,
+      "saveWorkflowContext": false,
+      "properties": [
+        {
+          "$id": "107",
+          "name": "EagerJoin",
+          "expressions": {
+            "$id": "108"
+          }
+        },
+        {
+          "$id": "109",
+          "name": "Mode",
+          "expressions": {
+            "$id": "110",
+            "Literal": "WaitAny"
+          }
+        }
+      ],
+      "propertyStorageProviders": {
+        "$id": "111"
+      }
+    },
+    {
+      "$id": "112",
+      "activityId": "610555ef-19e7-4bac-b7a0-d22b8a80bada",
+      "type": "WriteHttpResponse",
+      "displayName": "HTTP Response",
+      "persistWorkflow": false,
+      "loadWorkflowContext": false,
+      "saveWorkflowContext": false,
+      "properties": [
+        {
+          "$id": "113",
+          "name": "Content",
+          "expressions": {
+            "$id": "114",
+            "Literal": "Thanks for the hard work!"
+          }
+        },
+        {
+          "$id": "115",
+          "name": "ContentType",
+          "expressions": {
+            "$id": "116",
+            "Literal": "text/plain"
+          }
+        },
+        {
+          "$id": "117",
+          "name": "StatusCode",
+          "expressions": {
+            "$id": "118",
+            "Literal": "OK"
+          }
+        },
+        {
+          "$id": "119",
+          "name": "CharSet",
+          "expressions": {
+            "$id": "120",
+            "Literal": ""
+          }
+        },
+        {
+          "$id": "121",
+          "name": "ResponseHeaders",
+          "expressions": {
+            "$id": "122"
+          }
+        }
+      ],
+      "propertyStorageProviders": {
+        "$id": "123"
+      }
+    },
+    {
+      "$id": "124",
+      "activityId": "987452e6-b523-405a-bc9d-9212153a5e12",
+      "type": "Finish",
+      "displayName": "Finish",
+      "persistWorkflow": false,
+      "loadWorkflowContext": false,
+      "saveWorkflowContext": false,
+      "properties": [
+        {
+          "$id": "125",
+          "name": "ActivityOutput",
+          "expressions": {
+            "$id": "126"
+          }
+        },
+        {
+          "$id": "127",
+          "name": "OutcomeNames",
+          "expressions": {
+            "$id": "128"
+          }
+        }
+      ],
+      "propertyStorageProviders": {
+        "$id": "129"
+      }
+    }
+  ],
+  "connections": [
+    {
+      "$id": "130",
+      "sourceActivityId": "98e17bc1-8aae-439e-a013-f7d428db83ed",
+      "targetActivityId": "c277d471-ac97-4173-8947-3471f3bf7cb8",
+      "outcome": "Done"
+    },
+    {
+      "$id": "131",
+      "sourceActivityId": "c277d471-ac97-4173-8947-3471f3bf7cb8",
+      "targetActivityId": "dd0ba9f8-b3f4-4c7d-9bf7-9eb372214075",
+      "outcome": "Done"
+    },
+    {
+      "$id": "132",
+      "sourceActivityId": "bcb9fe74-f780-4a50-aa5d-965de4a2216a",
+      "targetActivityId": "f3909fde-f0a6-4337-be3b-60e9e328a54d",
+      "outcome": "Approve"
+    },
+    {
+      "$id": "133",
+      "sourceActivityId": "bcb9fe74-f780-4a50-aa5d-965de4a2216a",
+      "targetActivityId": "2a12383c-0b9e-47e9-b68d-60995c160e2a",
+      "outcome": "Reject"
+    },
+    {
+      "$id": "134",
+      "sourceActivityId": "bcb9fe74-f780-4a50-aa5d-965de4a2216a",
+      "targetActivityId": "9c1afa0c-f0ca-4678-8d70-104aab680668",
+      "outcome": "Timer"
+    },
+    {
+      "$id": "135",
+      "sourceActivityId": "f3909fde-f0a6-4337-be3b-60e9e328a54d",
+      "targetActivityId": "35c786df-2865-4180-b126-4bea85c79e83",
+      "outcome": "Done"
+    },
+    {
+      "$id": "136",
+      "sourceActivityId": "2a12383c-0b9e-47e9-b68d-60995c160e2a",
+      "targetActivityId": "19bdc377-f34c-4b65-b456-8e56aba2042c",
+      "outcome": "Done"
+    },
+    {
+      "$id": "137",
+      "sourceActivityId": "9c1afa0c-f0ca-4678-8d70-104aab680668",
+      "targetActivityId": "16dae479-2ed9-4a26-adca-9ebe497875a0",
+      "outcome": "Done"
+    },
+    {
+      "$id": "138",
+      "sourceActivityId": "16dae479-2ed9-4a26-adca-9ebe497875a0",
+      "targetActivityId": "9c1afa0c-f0ca-4678-8d70-104aab680668",
+      "outcome": "Done"
+    },
+    {
+      "$id": "139",
+      "sourceActivityId": "35c786df-2865-4180-b126-4bea85c79e83",
+      "targetActivityId": "afe93501-86bc-4a65-a879-4adeac7c09db",
+      "outcome": "Done"
+    },
+    {
+      "$id": "140",
+      "sourceActivityId": "19bdc377-f34c-4b65-b456-8e56aba2042c",
+      "targetActivityId": "afe93501-86bc-4a65-a879-4adeac7c09db",
+      "outcome": "Done"
+    },
+    {
+      "$id": "141",
+      "sourceActivityId": "afe93501-86bc-4a65-a879-4adeac7c09db",
+      "targetActivityId": "610555ef-19e7-4bac-b7a0-d22b8a80bada",
+      "outcome": "Done"
+    },
+    {
+      "$id": "142",
+      "sourceActivityId": "610555ef-19e7-4bac-b7a0-d22b8a80bada",
+      "targetActivityId": "987452e6-b523-405a-bc9d-9212153a5e12",
+      "outcome": "Done"
+    },
+    {
+      "$id": "143",
+      "sourceActivityId": "dd0ba9f8-b3f4-4c7d-9bf7-9eb372214075",
+      "targetActivityId": "bcb9fe74-f780-4a50-aa5d-965de4a2216a",
+      "outcome": "Done"
+    }
+  ],
+  "id": "b36c4f6f7b614301afa8335be8cf8a15"
+}
