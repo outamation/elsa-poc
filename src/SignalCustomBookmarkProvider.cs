@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Elsa.Workflows.CustomActivities.Signals.Bookmark
 {
-    public class ReferralReceivedBookmarkProvider<T> : BookmarkProvider<ReferralReceivedBookmark, T> where T : SignalReceived
+    public class VIABookmarkProvider<T> : BookmarkProvider<VIABookmark, T> where T : SignalReceived
     {
         public override async ValueTask<IEnumerable<BookmarkResult>> GetBookmarksAsync(BookmarkProviderContext<T> context, CancellationToken cancellationToken) => await GetBookmarksInternalAsync(context, cancellationToken).ToListAsync(cancellationToken);
 
@@ -22,7 +22,7 @@ namespace Elsa.Workflows.CustomActivities.Signals.Bookmark
             if (string.IsNullOrEmpty(signalName))
                 yield break;
 
-            yield return Result(new ReferralReceivedBookmark
+            yield return Result(new VIABookmark
             {
                 Signal = signalName
             });

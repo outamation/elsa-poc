@@ -1,5 +1,7 @@
 using Elsa;
 using Elsa.Activities.Signaling.Services;
+using Elsa.Activities.Temporal;
+using Elsa.Activities.UserTask.Extensions;
 using Elsa.Persistence.EntityFramework.Core.Extensions;
 using Elsa.Persistence.EntityFramework.Sqlite;
 using Elsa.Workflows.CustomActivities.Signals.Bookmark;
@@ -23,6 +25,9 @@ builder.Services
         .AddConsoleActivities()
         .AddHttpActivities(elsaSection.GetSection("Server").Bind)
         .AddQuartzTemporalActivities()
+        .AddEmailActivities(elsaSection.GetSection("Smtp").Bind)
+        .AddUserTaskActivities()
+        .AddCommonTemporalActivities()
         .AddWorkflowsFrom<Program>()
         .AddActivitiesFrom<Program>()
     );
@@ -38,13 +43,13 @@ builder.Services.AddCors(options =>
 });
 
 builder.Services.AddTransient<ICustomSignaler, CustomSignaler>();
-builder.Services.AddBookmarkProvider<ReferralReceivedBookmarkProvider<FileReferred>>();
-builder.Services.AddBookmarkProvider<ReferralReceivedBookmarkProvider<FileReceived>>();
-builder.Services.AddBookmarkProvider<ReferralReceivedBookmarkProvider<FCTitleOrdered>>();
-builder.Services.AddBookmarkProvider<ReferralReceivedBookmarkProvider<FCSCRAEligibilityReview>>();
-builder.Services.AddBookmarkProvider<ReferralReceivedBookmarkProvider<TitleReportReceived>>();
-builder.Services.AddBookmarkProvider<ReferralReceivedBookmarkProvider<PreliminaryTitleClear>>();
-builder.Services.AddBookmarkProvider<ReferralReceivedBookmarkProvider<ComplaintFiled>>();
+builder.Services.AddBookmarkProvider<VIABookmarkProvider<FileReferred>>();
+builder.Services.AddBookmarkProvider<VIABookmarkProvider<FileReceived>>();
+builder.Services.AddBookmarkProvider<VIABookmarkProvider<FCTitleOrdered>>();
+builder.Services.AddBookmarkProvider<VIABookmarkProvider<FCSCRAEligibilityReview>>();
+builder.Services.AddBookmarkProvider<VIABookmarkProvider<TitleReportReceived>>();
+builder.Services.AddBookmarkProvider<VIABookmarkProvider<PreliminaryTitleClear>>();
+builder.Services.AddBookmarkProvider<VIABookmarkProvider<ComplaintFiled>>();
 
 //builder.Services.AddBookmarkProvider<FileReceivedBookmarkProvider>();
 //builder.Services.AddBookmarkProvider<TitleOrderedBookmarkProvider>();

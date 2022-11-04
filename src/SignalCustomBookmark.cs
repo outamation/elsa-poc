@@ -2,17 +2,7 @@
 
 namespace Elsa.Workflows.CustomActivities.Signals.Bookmark
 {
-    public class ReferralReceivedBookmark : IBookmark
-    {
-        public string Signal { get; set; } = default!;
-    }
-
-    public class FileReceivedBookmark : IBookmark
-    {
-        public string Signal { get; set; } = default!;
-    }
-
-    public class TitleOrderedBookmark : IBookmark
+    public class VIABookmark : IBookmark
     {
         public string Signal { get; set; } = default!;
     }

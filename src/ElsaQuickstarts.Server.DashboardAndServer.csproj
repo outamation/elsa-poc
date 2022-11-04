@@ -8,12 +8,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Elsa" Version="2.9.0" />
-    <PackageReference Include="Elsa.Activities.Http" Version="2.9.0" />
-    <PackageReference Include="Elsa.Activities.Temporal.Quartz" Version="2.9.0" />
-    <PackageReference Include="Elsa.Designer.Components.Web" Version="2.9.0" />
-    <PackageReference Include="Elsa.Persistence.EntityFramework.Sqlite" Version="2.9.0" />
-    <PackageReference Include="Elsa.Server.Api" Version="2.9.0" />
+    <PackageReference Include="Elsa" Version="2.9.1" />
+    <PackageReference Include="Elsa.Activities.Email" Version="2.9.1" />
+    <PackageReference Include="Elsa.Activities.Http" Version="2.9.1" />
+    <PackageReference Include="Elsa.Activities.Temporal.Quartz" Version="2.9.1" />
+    <PackageReference Include="Elsa.Activities.UserTask" Version="2.9.1" />
+    <PackageReference Include="Elsa.Designer.Components.Web" Version="2.9.1" />
+    <PackageReference Include="Elsa.Persistence.EntityFramework.Sqlite" Version="2.9.1" />
+    <PackageReference Include="Elsa.Server.Api" Version="2.9.1" />
     <PackageReference Include="RestSharp" Version="108.0.2" />
   </ItemGroup>
 

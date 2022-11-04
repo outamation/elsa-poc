@@ -74,7 +74,7 @@ namespace Elsa.Activities.Signaling.Services
 
             var wf = await _workflowLaunchpad.CollectAndExecuteWorkflowsAsync(new WorkflowsQuery(
             signal,
-            new FileReceivedBookmark { Signal = normalizedSignal },
+            new VIABookmark { Signal = normalizedSignal },
             correlationId,
             workflowInstanceId,
             default,
