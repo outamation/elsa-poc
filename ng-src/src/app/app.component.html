@@ -3,7 +3,7 @@
 <div class="grid mx-3">
   <div class="col-10">
     <div class="via-heading">
-      <img class="via-icon mr-2" src="../assets/via.webp" /><span>Legal Case Management - {{title}}</span>
+      <img class="via-icon mr-2" src="../assets/via.webp" /><span>Sample Case Management - {{title}}</span>
     </div>
   </div>
   <div class="col-2 mt-3 flex justify-content-end flex-wrap">
@@ -19,66 +19,28 @@
       <p-steps [model]="stepItems" [(activeIndex)]="activeIndex"></p-steps>
     </div>
     <div>
-      <p-card *ngIf="activeIndex==0" header="Create Case"
-        subheader="Select case parameters and create case to go to next steps.">
+      <p-card *ngIf="activeIndex==0" header="Create Order"
+        subheader="Select order parameters and create order to go to next steps.">
         <div class="card">
           <div class="formgrid grid">
-            <div class="field col-12 md:col-3">
-              <label for="fileid" class="font-bold">File</label>
-              <input id="fileid" type="text" disabled value="Test-File-XYZ"
+            <div class="field col-2 md:col-3">
+              <label for="zip" class="font-bold">Loan Number</label><span class="font-bold text-red-500"> *</span>
+              <input id="zip" type="text" [(ngModel)]="case.Loan" [disabled]="caseCompleted"
                 class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
             </div>
-            <div class="field col-12 md:col-3">
-              <label for="filetype" class="font-bold">File Type</label>
-              <input id="filetype" type="text" disabled value="Default Servicing"
+            <div class="field col-2 md:col-3">
+              <label for="zip" class="font-bold">First Name</label>
+              <input id="zip" type="text" [(ngModel)]="case.FirstName" [disabled]="caseCompleted"
                 class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
             </div>
-            <div class="field col-3 md:col-3">
-              <label for="invtype" class="font-bold">Inv Type</label>
-              <select id="invtype"
-                class="w-full text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary"
-                style="appearance: auto">
-                <option selected>FHA</option>
-                <option>VA</option>
-                <option>Fannie Mae</option>
-                <option>Freddie Mac</option>
-                <option>Other</option>
-              </select>
-            </div>
-            <div class="field col-12 md:col-3">
-              <label for="loan" class="font-bold">Loan</label>
-              <input id="loan" type="text" disabled value="123456789"
+            <div class="field col-2 md:col-3">
+              <label for="zip" class="font-bold">Last Name</label>
+              <input id="zip" type="text" [(ngModel)]="case.LastName" [disabled]="caseCompleted"
                 class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
             </div>
-            <div class="field col-3 md:col-3">
-              <label for="case" class="font-bold">Case</label><span class="font-bold text-red-500"> *</span>
-              <input id="case" type="text" [(ngModel)]="case.Case" [disabled]="caseCompleted"
-                class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
-            </div>
-            <div class="field col-3 md:col-3">
-              <label for="casetype" class="font-bold">Case Type</label>
-              <select id="casetype" [disabled]="caseCompleted"
-                class="w-full text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary"
-                style="appearance: auto">
-                <option value="100064">Bankruptcy</option>
-                <option value="100104">DIL</option>
-                <option value="2">Eviction</option>
-                <option value="10" selected>Foreclosure</option>
-                <option value="100142">Litigation</option>
-                <option value="100120">Loss Mitigation</option>
-                <option value="100004">REO</option>
-                <option value="100006">Replevin</option>
-                <option value="100121">Title</option>
-              </select>
-            </div>
-            <div class="field col-3 md:col-3">
-              <label for="user" class="font-bold">User</label>
-              <input id="user" type="text" [(ngModel)]="case.User" [disabled]="caseCompleted"
-                class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
-            </div>
-            <div class="field col-3 md:col-3">
-              <label for="atty" class="font-bold">Atty</label>
-              <input id="atty" type="text" [(ngModel)]="case.Atty" [disabled]="caseCompleted"
+            <div class="field col-2 md:col-3">
+              <label for="zip" class="font-bold">Email</label>
+              <input id="zip" type="text" [(ngModel)]="case.Email" [disabled]="caseCompleted"
                 class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
             </div>
             <div class="field col-3">
@@ -165,7 +127,28 @@
               <input id="zip" type="text" [(ngModel)]="case.Zip" [disabled]="caseCompleted"
                 class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
             </div>
-
+            <div class="field col-6">
+              <label for="zip" class="font-bold">Transaction Type </label>
+              <div class="formgroup-inline">
+                <div class="field-radiobutton">
+                  <input type="radio" name="hcity" id="city7" checked>
+                  <label for="city7">Refinance</label>
+                </div>
+                <div class="field-radiobutton">
+                  <input type="radio" name="hcity" id="city8">
+                  <label for="city8">Purchase</label>
+                </div>
+                <div class="field-radiobutton">
+                  <input type="radio" name="hcity" id="city8">
+                  <label for="city8">Project Review</label>
+                </div>
+              </div>
+            </div>
+            <div class="field col-2 md:col-3">
+              <label for="zip" class="font-bold">Order ID</label><span class="font-bold text-red-500"> *</span>
+              <input id="zip" type="text" [(ngModel)]="case.OrderID" [disabled]="caseCompleted"
+                class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+            </div>
             <div class="field col-12">
               <label for="address" class="font-bold">Notes</label>
               <textarea id="address" type="text" rows="2" [disabled]="caseCompleted"
@@ -178,190 +161,341 @@
             (click)="caseCreate()"></button>
         </div>
       </p-card>
-      <p-card *ngIf="activeIndex==1" header="Case Steps"
-        subheader="Please complete below Case Steps one by one, you can also add a note.">
+
+      <p-card *ngIf="activeIndex==1" header="Document Received"
+        subheader="The Order has received documents, please move to next steps.">
         <div class="formgrid grid">
           <div class="field col-2 md:col-3">
-            <label for="fileid" class="font-bold">File: </label>
-            <label for="fileid" class="pl-2">{{case.File}}</label>
-          </div>
-          <div class="field col-2 md:col-3">
-            <label for="fileid" class="font-bold">File Type: </label>
-            <label for="fileid" class="pl-2">{{case.FileType}}</label>
-          </div>
-          <div class="field col-2 md:col-3">
-            <label for="fileid" class="font-bold">Inv Type: </label>
-            <label for="fileid" class="pl-2">{{case.InvType}}</label>
-          </div>
-          <div class="field col-2 md:col-3">
-            <label for="fileid" class="font-bold">Loan: </label>
+            <label for="zip" class="font-bold">Loan Number</label>
             <label for="fileid" class="pl-2">{{case.Loan}}</label>
           </div>
           <div class="field col-2 md:col-3">
-            <label for="fileid" class="font-bold">Case: </label>
-            <label for="fileid" class="pl-2">{{case.Case}}</label>
+            <label for="zip" class="font-bold">Order ID</label>
+            <label for="fileid" class="pl-2">{{case.OrderID}}</label>
           </div>
           <div class="field col-2 md:col-3">
-            <label for="fileid" class="font-bold">Case Type: </label>
-            <label for="fileid" class="pl-2">{{case.CaseType}}</label>
+            <label for="zip" class="font-bold">Name</label>
+            <label for="fileid" class="pl-2">{{case.LastName}} {{case.FirstName}}</label>
           </div>
           <div class="field col-2 md:col-3">
-            <label for="fileid" class="font-bold">User: </label>
-            <label for="fileid" class="pl-2">{{case.User}}</label>
+            <label for="zip" class="font-bold">Email</label>
+            <label for="fileid" class="pl-2">{{case.Email}}</label>
           </div>
-          <div class="field col-2 md:col-3">
-            <label for="fileid" class="font-bold">Atty: </label>
-            <label for="fileid" class="pl-2">{{case.Atty}}</label>
-          </div>
+
           <div class="ml-2 mb-3">
             <label for="fileid" class="font-bold">Property Address: </label>
-            <label for="fileid" class="pl-2">{{case.Address}} {{case.City}} {{case.State}} {{case.County}}
+            <label for="fileid" class="pl-2">{{case.Address}}, {{case.County}}, {{case.City}}, {{case.State}}
               {{case.Zip}}</label>
+          </div>
+          <div class="field col-6"></div>
+          <div class="field col-4">
+            <label for="address" class="font-bold">Documents</label>
+            <p-listbox [options]="documents" optionLabel="name" optionDisabled="inactive"></p-listbox>
+          </div>
+          <div class="field col-12">
+            <label for="address" class="font-bold">Notes</label>
+            <textarea id="address" type="text" rows="2" [disabled]="caseCompleted"
+              class="textarea-font text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"></textarea>
           </div>
         </div>
         <div class="mb-3">
-          <p-accordion>
-            <p-accordionTab *ngFor="let step of caseStepTasks"
-              [ngClass]="{'via-complete-step': step.completed,'via-overdue-step': step.overdue }"
-              [header]="step.stepName" [disabled]="step.disabled">
-              <div class="formgrid grid">
-                <div class="field col-3 md:col-3">
-                  <label for="fileid" class="font-bold">Target Complete Date</label>
-                  <input id="fileid" type="text" value="11/07/2022"
-                    class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
-                </div>
-                <div class="field col-3 md:col-3">
-                  <label for="fileid" class="font-bold">End Date</label>
-                  <input id="fileid" type="text" value="11/07/2022"
-                    class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
-                </div>
-                <div class="field col-2 md:col-3">
-                  <label for="vendor" class="font-bold">Vendor</label>
-                  <select id="vendor"
-                    class="w-full text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary"
-                    style="appearance: auto">
-                    <option>Alachua County</option>
-                    <option>Baker County</option>
-                    <option selected>Bay County</option>
-                    <option>Duval County</option>
-                    <option>Miami-Dade County</option>
-                  </select>
-                </div>
-                <div class="field col-2 md:col-3">
-                  <label for="client" class="font-bold">Client</label>
-                  <select id="client"
-                    class="w-full text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary"
-                    style="appearance: auto">
-                    <option>Abey Firm</option>
-                    <option>Default Client</option>
-                    <option selected>ABC Mortgage</option>
-                  </select>
-                </div>
-                <div class="field col-3 md:col-3" *ngIf="step.stepSignal === 'HUDFirstActionExpires'">
-                  <label for="fileid" class="font-bold">Date of Default</label>
-                  <input id="fileid" type="text" value="11/07/2022"
-                    class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
-                </div>
-                <div class="field col-3 md:col-3" *ngIf="step.stepSignal === 'HUDFirstActionExpires'">
-                  <label for="fileid" class="font-bold">Date of BK Release Date</label>
-                  <input id="fileid" type="text" value="11/07/2022"
-                    class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
-                </div>
-                <div class="field col-3 md:col-3" *ngIf="step.stepSignal === 'HUDFirstActionExpires'">
-                  <label for="fileid" class="font-bold">Date of Loss Mitigation Failure</label>
-                  <input id="fileid" type="text" value="11/07/2022"
-                    class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
-                </div>
-                <div class="field col-3 md:col-3" *ngIf="step.stepSignal === 'HUDFirstActionExpires'">
-                  <label for="fileid" class="font-bold">Date of Vacancy</label>
-                  <input id="fileid" type="text" value="11/07/2022"
-                    class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
-                </div>
-                <div class="field col-6">
-                  <label for="address" class="font-bold">Notes</label>
-                  <textarea id="address" type="text" rows="2"
-                    class="textarea-font text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"></textarea>
-                </div>
-                <div class="field col-2 md:col-3">
-                  <label for="showNote" class="font-bold">Show Note on Case View</label>
-                  <select id="showNote"
-                    class="w-full text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary"
-                    style="appearance: auto">
-                    <option>Yes</option>
-                    <option selected>No</option>
-                  </select>
-                </div>
-                <div class="field col-2 md:col-3 mt-4">
-                  <button pButton pRipple type="button" [disabled]="step.completed" icon="pi pi-save" label="Save"
-                    (click)="httpPost(step)" iconPos="left"></button>
-                </div>
-              </div>
-            </p-accordionTab>
-          </p-accordion>
         </div>
         <div class="flex justify-content-end flex-wrap card-container green-container">
-          <!-- <a class="mt-4" target="WorkflowProgress" href={{worflowProgressUrl}}>Workflow Progress</a> -->
           <button pButton pRipple type="button" class="ml-3" icon="pi pi-sitemap" label="Workflow Progress"
-            iconPos="left" (click)="openWorkflow(worflowProgressUrl)"></button>
-          <!-- <button pButton pRipple type="button" class="ml-3" icon="pi pi-replay" label="Reforecast" iconPos="left"
-            (click)="reforecastStepTasks()"></button> -->
-
+            iconPos="left" (click)="openWorkflow(workflowProgressUrl)"></button>
           <button pButton pRipple type="button" class="mx-3" icon="pi pi-chevron-left" label="Back" iconPos="left"
             (click)="back()"></button>
-
-          <button pButton pRipple type="button" icon="pi pi-chevron-right" label="Next" (click)="caseStepsComplete()"
-            iconPos="right"></button>
+          <button pButton pRipple type="button" icon="pi pi-chevron-right" label="Next"
+            (click)="orderStep('orderFulfilled')" iconPos="right"></button>
         </div>
       </p-card>
-      <p-card *ngIf="activeIndex==2" header="Case Complete"
-        subheader="When all required Case Steps are completed, the case can be closed.">
-        <div class="flex justify-content-end flex-wrap card-container green-container">
-          <div class="formgrid grid">
-            <div class="field col-2 md:col-3">
-              <label for="fileid" class="font-bold">File: </label>
-              <label for="fileid" class="pl-2">{{case.File}}</label>
-            </div>
-            <div class="field col-2 md:col-3">
-              <label for="fileid" class="font-bold">File Type: </label>
-              <label for="fileid" class="pl-2">{{case.FileType}}</label>
-            </div>
-            <div class="field col-2 md:col-3">
-              <label for="fileid" class="font-bold">Inv Type: </label>
-              <label for="fileid" class="pl-2">{{case.InvType}}</label>
-            </div>
-            <div class="field col-2 md:col-3">
-              <label for="fileid" class="font-bold">Loan: </label>
-              <label for="fileid" class="pl-2">{{case.Loan}}</label>
-            </div>
-            <div class="field col-2 md:col-3">
-              <label for="fileid" class="font-bold">Case: </label>
-              <label for="fileid" class="pl-2">{{case.Case}}</label>
-            </div>
-            <div class="field col-2 md:col-3">
-              <label for="fileid" class="font-bold">Case Type: </label>
-              <label for="fileid" class="pl-2">{{case.CaseType}}</label>
-            </div>
-            <div class="field col-2 md:col-3">
-              <label for="fileid" class="font-bold">User: </label>
-              <label for="fileid" class="pl-2">{{case.User}}</label>
-            </div>
-            <div class="field col-2 md:col-3">
-              <label for="fileid" class="font-bold">Atty: </label>
-              <label for="fileid" class="pl-2">{{case.Atty}}</label>
-            </div>
-            <div class="ml-2 mb-3">
-              <label for="fileid" class="font-bold">Property Address: </label>
-              <label for="fileid" class="pl-2">{{case.Address}} {{case.City}} {{case.State}} {{case.County}}
-                {{case.Zip}}</label>
-            </div>
+      <p-card *ngIf="activeIndex==2" header="Document Review"
+        subheader="The Order is ready for Document Review, please approve or reject document from here or from email.">
+        <div class="formgrid grid">
+          <div class="field col-2 md:col-3">
+            <label for="zip" class="font-bold">Loan Number</label>
+            <label for="fileid" class="pl-2">{{case.Loan}}</label>
           </div>
-
-          <!-- <a class="mt-4" target="WorkflowProgress" href={{worflowProgressUrl}}>Workflow Progress</a> -->
+          <div class="field col-2 md:col-3">
+            <label for="zip" class="font-bold">Order ID</label>
+            <label for="fileid" class="pl-2">{{case.OrderID}}</label>
+          </div>
+          <div class="field col-2 md:col-3">
+            <label for="zip" class="font-bold">Name</label>
+            <label for="fileid" class="pl-2">{{case.LastName}} {{case.FirstName}}</label>
+          </div>
+          <div class="field col-2 md:col-3">
+            <label for="zip" class="font-bold">Email</label>
+            <label for="fileid" class="pl-2">{{case.Email}}</label>
+          </div>
+          <div class="ml-2 mb-3">
+            <label for="fileid" class="font-bold">Property Address: </label>
+            <label for="fileid" class="pl-2">{{case.Address}}, {{case.County}}, {{case.City}}, {{case.State}}
+              {{case.Zip}}</label>
+          </div>
+          <div class="field col-6"></div>
+          <div class="field col-4">
+            <label for="address" class="font-bold">Documents</label>
+            <p-listbox [options]="documents" optionLabel="name" optionDisabled="inactive"></p-listbox>
+          </div>
+          <div class="field col-12">
+            <label for="address" class="font-bold">Notes</label>
+            <textarea id="address" type="text" rows="2" [disabled]="caseCompleted"
+              class="textarea-font text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"></textarea>
+          </div>
+        </div>
+        <div class="mb-3">
+        </div>
+        <div class="flex justify-content-end flex-wrap card-container green-container">
           <button pButton pRipple type="button" class="ml-3" icon="pi pi-sitemap" label="Workflow Progress"
-            iconPos="left" (click)="openWorkflow(worflowProgressUrl)"></button>
+            iconPos="left" (click)="openWorkflow(workflowProgressUrl)"></button>
           <button pButton pRipple type="button" class="mx-3" icon="pi pi-chevron-left" label="Back" iconPos="left"
             (click)="back()"></button>
-          <button pButton pRipple type="button" icon="pi" label="Complete" iconPos="right" (click)="caseComplete()"
+          <button pButton pRipple type="button" label="Approve" class="p-button-success"></button>
+          <button pButton pRipple type="button" label="Reject" class="p-button-danger mx-3"></button>
+          <button pButton pRipple type="button" icon="pi pi-chevron-right" label="Next"
+            (click)="orderStep('orderFulfilled')" iconPos="right"></button>
+        </div>
+      </p-card>
+
+      <p-card *ngIf="activeIndex==3" header="Quality Control"
+        subheader="The Order is ready for Quality Audit, please check and move to next steps.">
+        <div class="formgrid grid">
+          <div class="field col-2 md:col-3">
+            <label for="zip" class="font-bold">Loan Number</label>
+            <label for="fileid" class="pl-2">{{case.Loan}}</label>
+          </div>
+          <div class="field col-2 md:col-3">
+            <label for="zip" class="font-bold">Order ID</label>
+            <label for="fileid" class="pl-2">{{case.OrderID}}</label>
+          </div>
+          <div class="field col-2 md:col-3">
+            <label for="zip" class="font-bold">Name</label>
+            <label for="fileid" class="pl-2">{{case.LastName}} {{case.FirstName}}</label>
+          </div>
+          <div class="field col-2 md:col-3">
+            <label for="zip" class="font-bold">Email</label>
+            <label for="fileid" class="pl-2">{{case.Email}}</label>
+          </div>
+          <div class="ml-2 mb-3">
+            <label for="fileid" class="font-bold">Property Address: </label>
+            <label for="fileid" class="pl-2">{{case.Address}}, {{case.County}}, {{case.City}}, {{case.State}}
+              {{case.Zip}}</label>
+          </div>
+          <!-- <div class="field col-12">
+            <label for="address" class="font-bold"> CondoSafe Properties Locking Checklist </label>
+          </div>
+          <div class="field col-12">
+            <div class="ml-2">
+              <span class="font-bold text-red-500 mx-2"> Fail</span>
+              <p-inputSwitch class="mt-2"></p-inputSwitch>
+              <span class="font-bold text-green-500 mx-2"> Pass</span>
+              <label for="fileid" class="ml-3">Total Number of units in COA</label>
+            </div>
+          </div>
+          <div class="field col-12">
+            <div class="ml-2">
+              <span class="font-bold text-red-500 mx-2"> Fail</span>
+              <p-inputSwitch class="mt-2"></p-inputSwitch>
+              <span class="font-bold text-green-500 mx-2"> Pass</span>
+              <label for="fileid" class="ml-3">Total Number of Condos in COA </label>
+            </div>
+          </div>
+          <div class="field col-12">
+            <div class="ml-2">
+              <span class="font-bold text-red-500 mx-2"> Fail</span>
+              <p-inputSwitch class="mt-2"></p-inputSwitch>
+              <span class="font-bold text-green-500 mx-2"> Pass</span>
+              <label for="fileid" class="ml-3">Total Number of Non-Condos in COA </label>
+            </div>
+          </div>
+          <div class="field col-12">
+            <label for="address" class="font-bold"> Is this a Condo Association </label>
+          </div>
+          <div class="field col-12">
+            <div class="ml-2">
+              <span class="font-bold text-red-500 mx-2"> Fail</span>
+              <p-inputSwitch class="mt-2"></p-inputSwitch>
+              <span class="font-bold text-green-500 mx-2"> Pass</span>
+              <label for="fileid" class="ml-3">Total Number of units in COA</label>
+            </div>
+          </div>
+          <div class="field col-12">
+            <div class="ml-2">
+              <span class="font-bold text-red-500 mx-2"> Fail</span>
+              <p-inputSwitch class="mt-2"></p-inputSwitch>
+              <span class="font-bold text-green-500 mx-2"> Pass</span>
+              <label for="fileid" class="ml-3">Total Number of Condos in COA</label>
+            </div>
+          </div>
+          <div class="field col-12">
+            <div class="ml-2">
+              <span class="font-bold text-red-500 mx-2"> Fail</span>
+              <p-inputSwitch class="mt-2"></p-inputSwitch>
+              <span class="font-bold text-green-500 mx-2"> Pass</span>
+              <label for="fileid" class="ml-3">Total Number of Non-Condos in COA</label>
+            </div>
+          </div> -->
+          <div class="field col-12">
+            <label for="address" class="font-bold"> Is this a Condo Association </label>
+          </div>
+          <div class="field col-12">
+            <div class="ml-2">
+              <span class="font-bold text-red-500 mx-2"> Fail</span>
+              <p-inputSwitch class="mt-2"></p-inputSwitch>
+              <span class="font-bold text-green-500 mx-2"> Pass</span>
+              <label for="fileid" class="ml-3">Is this a Association ?</label>
+            </div>
+          </div>
+          <div class="field col-12">
+            <div class="ml-2">
+              <span class="font-bold text-red-500 mx-2"> Fail</span>
+              <p-inputSwitch class="mt-2"></p-inputSwitch>
+              <span class="font-bold text-green-500 mx-2"> Pass</span>
+              <label for="fileid" class="ml-3">Source to confirm Association </label>
+            </div>
+          </div>
+          <div class="field col-12">
+            <div class="ml-2">
+              <span class="font-bold text-red-500 mx-2"> Fail</span>
+              <p-inputSwitch class="mt-2"></p-inputSwitch>
+              <span class="font-bold text-green-500 mx-2"> Pass</span>
+              <label for="fileid" class="ml-3">If Other please explain</label>
+            </div>
+          </div>
+          <div class="field col-12">
+            <label for="address" class="font-bold">Is this Association solely Site Condos </label>
+          </div>
+          <div class="field col-12">
+            <div class="ml-2">
+              <span class="font-bold text-red-500 mx-2"> Fail</span>
+              <p-inputSwitch class="mt-2"></p-inputSwitch>
+              <span class="font-bold text-green-500 mx-2"> Pass</span>
+              <label for="fileid" class="ml-3">Google Earth shows Site Condos</label>
+            </div>
+          </div>
+          <div class="field col-12">
+            <div class="ml-2">
+              <span class="font-bold text-red-500 mx-2"> Fail</span>
+              <p-inputSwitch class="mt-2"></p-inputSwitch>
+              <span class="font-bold text-green-500 mx-2"> Pass</span>
+              <label for="fileid" class="ml-3">If yes is Site Condo flag on ?</label>
+            </div>
+          </div>
+          <div class="field col-12">
+            <label for="address" class="font-bold"> Is there Commercial Space</label>
+          </div>
+          <div class="field col-12">
+            <div class="ml-2">
+              <span class="font-bold text-red-500 mx-2"> Fail</span>
+              <p-inputSwitch class="mt-2"></p-inputSwitch>
+              <span class="font-bold text-green-500 mx-2"> Pass</span>
+              <label for="fileid" class="ml-3">Is there Commercial Space?</label>
+            </div>
+          </div>
+          <div class="field col-12">
+            <div class="ml-2">
+              <span class="font-bold text-red-500 mx-2"> Fail</span>
+              <p-inputSwitch class="mt-2"></p-inputSwitch>
+              <span class="font-bold text-green-500 mx-2"> Pass</span>
+              <label for="fileid" class="ml-3">Number of Commercial Units</label>
+            </div>
+          </div>
+          <div class="field col-12">
+            <div class="ml-2">
+              <span class="font-bold text-red-500 mx-2"> Fail</span>
+              <p-inputSwitch class="mt-2"></p-inputSwitch>
+              <span class="font-bold text-green-500 mx-2"> Pass</span>
+              <label for="fileid" class="ml-3">Source of Commercial Units</label>
+            </div>
+          </div>
+          <div class="field col-12">
+            <label for="address" class="font-bold"> Data File</label>
+          </div>
+          <div class="field col-12">
+            <div class="ml-2">
+              <span class="font-bold text-red-500 mx-2"> Fail</span>
+              <p-inputSwitch class="mt-2"></p-inputSwitch>
+              <span class="font-bold text-green-500 mx-2"> Pass</span>
+              <label for="fileid" class="ml-3">Did Data File match USPS formatting?</label>
+            </div>
+          </div>
+          <div class="field col-12">
+            <div class="ml-2">
+              <span class="font-bold text-red-500 mx-2"> Fail</span>
+              <p-inputSwitch class="mt-2"></p-inputSwitch>
+              <span class="font-bold text-green-500 mx-2"> Pass</span>
+              <label for="fileid" class="ml-3">Does Locked Data File contain order address(es)?</label>
+            </div>
+          </div>
+          <div class="field col-12">
+            <div class="ml-2">
+              <span class="font-bold text-red-500 mx-2"> Fail</span>
+              <p-inputSwitch class="mt-2"></p-inputSwitch>
+              <span class="font-bold text-green-500 mx-2"> Pass</span>
+              <label for="fileid" class="ml-3">Data Source Used</label>
+            </div>
+          </div>
+          <div class="field col-12">
+            <label for="address" class="font-bold"> General Data Quality</label>
+          </div>
+          <div class="field col-12">
+            <div class="ml-2">
+              <span class="font-bold text-red-500 mx-2"> Fail</span>
+              <p-inputSwitch class="mt-2"></p-inputSwitch>
+              <span class="font-bold text-green-500 mx-2"> Pass</span>
+              <label for="fileid" class="ml-3">Correctly Submitted Units</label>
+            </div>
+          </div>
+          <div class="field col-12">
+            <label for="address" class="font-bold">General Notes </label>
+            <textarea id="address" type="text" rows="2" [disabled]="caseCompleted"
+              class="textarea-font text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"></textarea>
+          </div>
+        </div>
+        <div class="mb-3">
+        </div>
+        <div class="flex justify-content-end flex-wrap card-container green-container">
+          <button pButton pRipple type="button" class="ml-3" icon="pi pi-sitemap" label="Workflow Progress"
+            iconPos="left" (click)="openWorkflow(workflowProgressUrl)"></button>
+          <button pButton pRipple type="button" class="mx-3" icon="pi pi-chevron-left" label="Back" iconPos="left"
+            (click)="back()"></button>
+          <button pButton pRipple type="button" icon="pi pi-chevron-right" label="Next"
+            (click)="orderStep('orderFulfilled')" iconPos="right"></button>
+        </div>
+      </p-card>
+
+      <p-card *ngIf="activeIndex==4" header="Order Fulfilled"
+        subheader="The Order is ready to be fulfilled, please complete this step.">
+        <div class="formgrid grid">
+          <div class="field col-2 md:col-3">
+            <label for="zip" class="font-bold">Loan Number</label>
+            <label for="fileid" class="pl-2">{{case.Loan}}</label>
+          </div>
+          <div class="field col-2 md:col-3">
+            <label for="zip" class="font-bold">Order ID</label>
+            <label for="fileid" class="pl-2">{{case.OrderID}}</label>
+          </div>
+          <div class="field col-2 md:col-3">
+            <label for="zip" class="font-bold">Name</label>
+            <label for="fileid" class="pl-2">{{case.LastName}} {{case.FirstName}}</label>
+          </div>
+          <div class="field col-2 md:col-3">
+            <label for="zip" class="font-bold">Email</label>
+            <label for="fileid" class="pl-2">{{case.Email}}</label>
+          </div>
+          <div class="ml-2 mb-3">
+            <label for="fileid" class="font-bold">Property Address: </label>
+            <label for="fileid" class="pl-2">{{case.Address}}, {{case.County}}, {{case.City}}, {{case.State}}
+              {{case.Zip}}</label>
+          </div>
+        </div>
+        <div class="flex justify-content-end flex-wrap card-container green-container">
+          <button pButton pRipple type="button" class="ml-3" icon="pi pi-sitemap" label="Workflow Progress"
+            iconPos="left" (click)="openWorkflow(workflowProgressUrl)"></button>
+          <button pButton pRipple type="button" class="mx-3" icon="pi pi-chevron-left" label="Back" iconPos="left"
+            (click)="back()"></button>
+          <button pButton pRipple type="button" icon="pi" label="Complete" iconPos="right" (click)="caseStepsComplete()"
             [disabled]="caseCompleted"></button>
         </div>
       </p-card>
