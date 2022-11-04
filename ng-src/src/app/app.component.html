@@ -226,7 +226,7 @@
               [header]="step.stepName" [disabled]="step.disabled">
               <div class="formgrid grid">
                 <div class="field col-3 md:col-3">
-                  <label for="fileid" class="font-bold">Target Complete Date</label>
+                  <label for="fileid" class="font-bold">Target Date</label>
                   <input id="fileid" type="text" value="11/07/2022"
                     class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
                 </div>
@@ -300,9 +300,9 @@
           </p-accordion>
         </div>
         <div class="flex justify-content-end flex-wrap card-container green-container">
-          <!-- <a class="mt-4" target="WorkflowProgress" href={{worflowProgressUrl}}>Workflow Progress</a> -->
+          <!-- <a class="mt-4" target="WorkflowProgress" href={{workflowProgressUrl}}>Workflow Progress</a> -->
           <button pButton pRipple type="button" class="ml-3" icon="pi pi-sitemap" label="Workflow Progress"
-            iconPos="left" (click)="openWorkflow(worflowProgressUrl)"></button>
+            iconPos="left" (click)="openWorkflow(workflowProgressUrl)"></button>
           <!-- <button pButton pRipple type="button" class="ml-3" icon="pi pi-replay" label="Reforecast" iconPos="left"
             (click)="reforecastStepTasks()"></button> -->
 
@@ -356,9 +356,9 @@
             </div>
           </div>
 
-          <!-- <a class="mt-4" target="WorkflowProgress" href={{worflowProgressUrl}}>Workflow Progress</a> -->
+          <!-- <a class="mt-4" target="WorkflowProgress" href={{workflowProgressUrl}}>Workflow Progress</a> -->
           <button pButton pRipple type="button" class="ml-3" icon="pi pi-sitemap" label="Workflow Progress"
-            iconPos="left" (click)="openWorkflow(worflowProgressUrl)"></button>
+            iconPos="left" (click)="openWorkflow(workflowProgressUrl)"></button>
           <button pButton pRipple type="button" class="mx-3" icon="pi pi-chevron-left" label="Back" iconPos="left"
             (click)="back()"></button>
           <button pButton pRipple type="button" icon="pi" label="Complete" iconPos="right" (click)="caseComplete()"

@@ -14,7 +14,7 @@ namespace ElsaQuickstarts.Server.DashboardAndServer
 
     public class CaseStep : SignalReceived
     {
-        [ActivityInput(Hint = "Select target date.", DefaultValue = "This must NOT show up.")]
+        [ActivityInput(Hint = "Select target date.", DefaultValue = "")]
         public string? TargetDate { get; set; }
     }
 

@@ -17,11 +17,12 @@ import { HttpClientModule } from '@angular/common/http';
 import { AccordionModule } from 'primeng/accordion';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { FormsModule } from '@angular/forms';
+import { CalendarModule } from 'primeng/calendar';
 @NgModule({
   declarations: [
     AppComponent
   ],
-  imports: [CommonModule, BrowserModule, AppRoutingModule, BrowserAnimationsModule, ProgressSpinnerModule, FormsModule,
+  imports: [CommonModule, BrowserModule, AppRoutingModule, BrowserAnimationsModule, ProgressSpinnerModule, FormsModule, CalendarModule,
     StepsModule, ToastModule, ButtonModule, CardModule, SidebarModule, MenuModule, RippleModule, AccordionModule,
     HttpClientModule
   ],

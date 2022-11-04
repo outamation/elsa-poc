@@ -12,9 +12,10 @@ import { MessageService } from 'primeng/api';
 })
 export class AppComponent implements OnInit {
   workflowURL = "https://localhost:7190";
+  workflowID = 'b6406a8bcc224d3588299707c0a5f0aa';
   workflowStart = "/cms/fcfha"
-  worflowInstanceId = ""
-  worflowProgressUrl = this.workflowURL + "/workflow-instances"
+  workflowInstanceId = ""
+  workflowProgressUrl = this.workflowURL + "/workflow-instances"
   title = 'Workflow';
   menuItems: MenuItem[] = [];
   stepItems: MenuItem[] = [];
@@ -93,30 +94,44 @@ export class AppComponent implements OnInit {
     this.setCaseStepTasks();
   }
   setCaseStepTasks() {
-    this.caseStepTasks = [
-      { stepName: 'File Referred To Attorney', stepSignal: 'FileReferred', disabled: false },
-      { stepName: 'File Received By Attorney', stepSignal: 'FileReceived', disabled: false },
-      { stepName: 'FC Title Ordered', stepSignal: 'FCTitleOrdered', disabled: false },
-      { stepName: 'FC SCRA Eligibility Review', stepSignal: 'FCSCRAEligibilityReview', disabled: false },
-      { stepName: 'Title Report Received', stepSignal: 'TitleReportReceived', disabled: true },
-      { stepName: 'Preliminary Title Clear', stepSignal: 'PreliminaryTitleClear', disabled: true },
-      { stepName: 'Complaint Filed', stepSignal: 'ComplaintFiled', disabled: true },
-      // { stepName: 'HUD First Action Expires', stepSignal: 'HUDFirstActionExpires', disabled: true },
-    ];
+    this.http.get(this.workflowURL + '/v1/workflow-definitions/' + this.workflowID + '/Latest')
+      .subscribe((data: any) => {
+        console.log(data.activities);
+        // data.activities.map()
+        const excludeSteps = ['Fork', 'Finish', 'Join', 'HttpEndpoint', 'WriteHttpResponse']
+        // this.caseStepTasks
+        data.activities.map((actvt: any) => {
+          // if(actvt.type.includes)
+          if (excludeSteps.indexOf(actvt.type) === -1)
+            this.caseStepTasks.push({ stepName: actvt.displayName, stepSignal: actvt.type, disabled: false });
+        })
+      })
+
+    // this.caseStepTasks = [
+    //   { stepName: 'File Referred To Attorney', stepSignal: 'FileReferred', disabled: false },
+    //   { stepName: 'File Received By Attorney', stepSignal: 'FileReceived', disabled: false },
+    //   { stepName: 'FC Title Ordered', stepSignal: 'FCTitleOrdered', disabled: false },
+    //   { stepName: 'FC SCRA Eligibility Review', stepSignal: 'FCSCRAEligibilityReview', disabled: false },
+    //   { stepName: 'Title Report Received', stepSignal: 'TitleReportReceived', disabled: true },
+    //   { stepName: 'Preliminary Title Clear', stepSignal: 'PreliminaryTitleClear', disabled: true },
+    //   { stepName: 'Complaint Filed', stepSignal: 'ComplaintFiled', disabled: true },
+    //   // { stepName: 'HUD First Action Expires', stepSignal: 'HUDFirstActionExpires', disabled: true },
+    // ];
   }
 
   reforecastStepTasks() {
     this.httpGet(this.workflowStart);
     this.setCaseStepTasks();
-    this.overDueSteps();
+    // this.overDueSteps();
   }
+
   caseCreate() {
     if (this.case.Case) {
-      if (!this.worflowInstanceId) {
+      if (!this.workflowInstanceId) {
         this.httpGet(this.workflowStart);
         this.showSuccess("Case is created successfully, Please proceed with case steps.");
       }
-      this.overDueSteps();
+      // this.overDueSteps();
       this.next();
     } else {
       this.showError("Case Number is required.");
@@ -165,14 +180,14 @@ export class AppComponent implements OnInit {
 
   httpGet(endpoint: any) {
     this.http.get(this.workflowURL + endpoint, { responseType: 'text' }).subscribe(data => {
-      this.worflowInstanceId = data;
-      console.log(this.worflowInstanceId);
-      this.worflowProgressUrl = this.workflowURL + "/workflow-instances/" + this.worflowInstanceId;
+      this.workflowInstanceId = data;
+      console.log(this.workflowInstanceId);
+      this.workflowProgressUrl = this.workflowURL + "/workflow-instances/" + this.workflowInstanceId;
     })
   }
 
   isWorkflowComplete() {
-    this.http.get(this.workflowURL + "/v1/workflow-instances/" + this.worflowInstanceId)
+    this.http.get(this.workflowURL + "/v1/workflow-instances/" + this.workflowInstanceId)
       .subscribe((data: any) => {
         console.log(data);
         if (data.workflowStatus === "Finished") {
@@ -189,7 +204,7 @@ export class AppComponent implements OnInit {
   httpPost(step: any) {
     console.log(step);
 
-    this.http.post<any>(`${this.workflowURL}/v1/custom-signals/${step.stepSignal}/execute`, { workflowInstanceId: this.worflowInstanceId })
+    this.http.post<any>(`${this.workflowURL}/v1/custom-signals/${step.stepSignal}/execute`, { workflowInstanceId: this.workflowInstanceId })
       .subscribe(data => {
         console.log('Post Response', data);
         if (data.startedWorkflows.length > 0) {
