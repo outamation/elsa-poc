@@ -1,12 +1,18 @@
 ﻿using Elsa;
+using Elsa.Activities.Email;
+using Elsa.Activities.Email.Options;
+using Elsa.Activities.Email.Services;
 using Elsa.Activities.Http;
 using Elsa.Activities.Signaling;
 using Elsa.Activities.Signaling.Models;
 using Elsa.ActivityResults;
 using Elsa.Attributes;
 using Elsa.Expressions;
+using Elsa.Serialization;
 using Elsa.Services;
 using Elsa.Services.Models;
+using Microsoft.Extensions.Options;
+using System.Net.Http;
 
 namespace ElsaQuickstarts.Server.DashboardAndServer
 {
@@ -89,6 +95,50 @@ namespace ElsaQuickstarts.Server.DashboardAndServer
     public class ComplaintFiled : CaseStep
     {
         [ActivityInput(Hint = "The name of the signal to wait for.", DefaultValue = nameof(ComplaintFiled), IsReadOnly = true, SupportedSyntaxes = new[] { SyntaxNames.JavaScript, SyntaxNames.Liquid })]
+        public new string Signal
+        {
+            get { return base.Signal; }
+            set { base.Signal = value; }
+        }
+    }
+
+    [Trigger(Category = "VIA", DisplayName = "Approve", Description = "", Outcomes = new string[] { "Done" })]
+    public class Approve : CaseStep
+    {
+        [ActivityInput(Hint = "The name of the signal to wait for.", DefaultValue = nameof(Approve), IsReadOnly = true, SupportedSyntaxes = new[] { SyntaxNames.JavaScript, SyntaxNames.Liquid })]
+        public new string Signal
+        {
+            get { return base.Signal; }
+            set { base.Signal = value; }
+        }
+    }
+
+    [Trigger(Category = "VIA", DisplayName = "Reject", Description = "", Outcomes = new string[] { "Done" })]
+    public class Reject : CaseStep
+    {
+        [ActivityInput(Hint = "The name of the signal to wait for.", DefaultValue = nameof(Reject), IsReadOnly = true, SupportedSyntaxes = new[] { SyntaxNames.JavaScript, SyntaxNames.Liquid })]
+        public new string Signal
+        {
+            get { return base.Signal; }
+            set { base.Signal = value; }
+        }
+    }
+
+    [Trigger(Category = "VIA", DisplayName = "Document Received", Description = "", Outcomes = new string[] { "Done" })]
+    public class DocumentReceived : CaseStep
+    {
+        [ActivityInput(Hint = "The name of the signal to wait for.", DefaultValue = nameof(DocumentReceived), IsReadOnly = true, SupportedSyntaxes = new[] { SyntaxNames.JavaScript, SyntaxNames.Liquid })]
+        public new string Signal
+        {
+            get { return base.Signal; }
+            set { base.Signal = value; }
+        }
+    }
+
+    [Trigger(Category = "VIA", DisplayName = "Quality Control", Description = "", Outcomes = new string[] { "Done" })]
+    public class QualityControl : CaseStep
+    {
+        [ActivityInput(Hint = "The name of the signal to wait for.", DefaultValue = nameof(QualityControl), IsReadOnly = true, SupportedSyntaxes = new[] { SyntaxNames.JavaScript, SyntaxNames.Liquid })]
         public new string Signal
         {
             get { return base.Signal; }

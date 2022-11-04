@@ -49,5 +49,28 @@ namespace ElsaQuickstarts.Server.DashboardAndServer
                 new ExecuteSignalResponse(result.Select(x => new CollectedWorkflow(x.WorkflowInstanceId, x.WorkflowInstance, x.ActivityId)).ToList()),
                 _serializerSettingsProvider.GetSettings());
         }
+
+        [HttpGet]
+        [ElsaJsonFormatter]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ExecuteSignalResponse))]
+        [SwaggerOperation(
+            Summary = "Signals all workflows waiting on the specified signal name synchronously.",
+            Description = "Signals all workflows waiting on the specified signal name synchronously.",
+            OperationId = "Signals.Execute",
+            Tags = new[] { "Signals" })
+        ]
+        public async Task<IActionResult> Handle(string signalName, string workflowInstanceId, CancellationToken cancellationToken = default)
+        {
+            ExecuteSignalRequest request = new ExecuteSignalRequest { WorkflowInstanceId = workflowInstanceId };
+
+            var result = await _signaler.TriggerSignalAsync(signalName, request.Input, request.WorkflowInstanceId, request.CorrelationId, cancellationToken).ToList();
+
+            if (Response.HasStarted)
+                return new EmptyResult();
+
+            return Json(
+                new ExecuteSignalResponse(result.Select(x => new CollectedWorkflow(x.WorkflowInstanceId, x.WorkflowInstance, x.ActivityId)).ToList()),
+                _serializerSettingsProvider.GetSettings());
+        }
     }
 }

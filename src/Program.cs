@@ -50,6 +50,10 @@ builder.Services.AddBookmarkProvider<VIABookmarkProvider<FCSCRAEligibilityReview
 builder.Services.AddBookmarkProvider<VIABookmarkProvider<TitleReportReceived>>();
 builder.Services.AddBookmarkProvider<VIABookmarkProvider<PreliminaryTitleClear>>();
 builder.Services.AddBookmarkProvider<VIABookmarkProvider<ComplaintFiled>>();
+builder.Services.AddBookmarkProvider<VIABookmarkProvider<Approve>>();
+builder.Services.AddBookmarkProvider<VIABookmarkProvider<Reject>>();
+builder.Services.AddBookmarkProvider<VIABookmarkProvider<DocumentReceived>>();
+builder.Services.AddBookmarkProvider<VIABookmarkProvider<QualityControl>>();
 
 //builder.Services.AddBookmarkProvider<FileReceivedBookmarkProvider>();
 //builder.Services.AddBookmarkProvider<TitleOrderedBookmarkProvider>();
