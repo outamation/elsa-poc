@@ -84,7 +84,7 @@
             <div class="field col-3">
               <label for="address" class="font-bold">Property Address</label>
               <textarea id="address" type="text" rows="2" [(ngModel)]="case.Address" [disabled]="caseCompleted"
-                class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"></textarea>
+                class="textarea-font text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"></textarea>
             </div>
             <div class="field col-2 md:col-3">
               <label for="city" class="font-bold">City</label>
@@ -169,7 +169,7 @@
             <div class="field col-12">
               <label for="address" class="font-bold">Notes</label>
               <textarea id="address" type="text" rows="2" [disabled]="caseCompleted"
-                class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"></textarea>
+                class="textarea-font text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"></textarea>
             </div>
           </div>
         </div>
@@ -280,7 +280,7 @@
                 <div class="field col-6">
                   <label for="address" class="font-bold">Notes</label>
                   <textarea id="address" type="text" rows="2"
-                    class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"></textarea>
+                    class="textarea-font text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"></textarea>
                 </div>
                 <div class="field col-2 md:col-3">
                   <label for="showNote" class="font-bold">Show Note on Case View</label>
@@ -300,9 +300,11 @@
           </p-accordion>
         </div>
         <div class="flex justify-content-end flex-wrap card-container green-container">
-          <a class="mt-4" target="WorkflowProgress" href={{worflowProgressUrl}}>Workflow Progress</a>
-          <button pButton pRipple type="button" class="ml-3" icon="pi pi-replay" label="Reforecast" iconPos="left"
-            (click)="reforecastStepTasks()"></button>
+          <!-- <a class="mt-4" target="WorkflowProgress" href={{worflowProgressUrl}}>Workflow Progress</a> -->
+          <button pButton pRipple type="button" class="ml-3" icon="pi pi-sitemap" label="Workflow Progress"
+            iconPos="left" (click)="openWorkflow(worflowProgressUrl)"></button>
+          <!-- <button pButton pRipple type="button" class="ml-3" icon="pi pi-replay" label="Reforecast" iconPos="left"
+            (click)="reforecastStepTasks()"></button> -->
 
           <button pButton pRipple type="button" class="mx-3" icon="pi pi-chevron-left" label="Back" iconPos="left"
             (click)="back()"></button>
@@ -354,7 +356,9 @@
             </div>
           </div>
 
-          <a class="mt-4" target="WorkflowProgress" href={{worflowProgressUrl}}>Workflow Progress</a>
+          <!-- <a class="mt-4" target="WorkflowProgress" href={{worflowProgressUrl}}>Workflow Progress</a> -->
+          <button pButton pRipple type="button" class="ml-3" icon="pi pi-sitemap" label="Workflow Progress"
+            iconPos="left" (click)="openWorkflow(worflowProgressUrl)"></button>
           <button pButton pRipple type="button" class="mx-3" icon="pi pi-chevron-left" label="Back" iconPos="left"
             (click)="back()"></button>
           <button pButton pRipple type="button" icon="pi" label="Complete" iconPos="right" (click)="caseComplete()"

@@ -149,6 +149,10 @@ export class AppComponent implements OnInit {
     this.activeIndex = this.activeIndex + 1;
   }
 
+  openWorkflow(url: any) {
+    window.open(url, "WorkflowProgress");
+  }
+
   showSuccess(msg: any) {
     this.messageService.clear();
     this.messageService.add({ severity: 'success', summary: 'Success', detail: msg });
