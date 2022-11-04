@@ -17,12 +17,22 @@ import { HttpClientModule } from '@angular/common/http';
 import { AccordionModule } from 'primeng/accordion';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { FormsModule } from '@angular/forms';
+import { CalendarModule } from 'primeng/calendar';
+import { InputTextModule } from 'primeng/inputtext';
+import { InputTextareaModule } from 'primeng/inputtextarea';
+import { RadioButtonModule } from 'primeng/radiobutton';
+import { DropdownModule } from 'primeng/dropdown';
+import { CheckboxModule } from 'primeng/checkbox';
+import { SelectButtonModule } from 'primeng/selectbutton';
+import { InputSwitchModule } from 'primeng/inputswitch';
+import { ListboxModule } from 'primeng/listbox';
 @NgModule({
   declarations: [
     AppComponent
   ],
-  imports: [CommonModule, BrowserModule, AppRoutingModule, BrowserAnimationsModule, ProgressSpinnerModule, FormsModule,
-    StepsModule, ToastModule, ButtonModule, CardModule, SidebarModule, MenuModule, RippleModule, AccordionModule,
+  imports: [CommonModule, BrowserModule, AppRoutingModule, BrowserAnimationsModule, ProgressSpinnerModule, FormsModule, CalendarModule,
+    StepsModule, ToastModule, ButtonModule, CardModule, SidebarModule, MenuModule, RippleModule, AccordionModule, InputTextModule,
+    InputTextareaModule, RadioButtonModule, DropdownModule, CheckboxModule, SelectButtonModule, InputSwitchModule, ListboxModule,
     HttpClientModule
   ],
   providers: [MessageService],
