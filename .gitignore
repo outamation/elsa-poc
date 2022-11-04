@@ -348,3 +348,6 @@ MigrationBackup/
 
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
+/src/elsa.sqlite.db-wal
+/src/elsa.sqlite.db-shm
+/src/elsa.sqlite.db
