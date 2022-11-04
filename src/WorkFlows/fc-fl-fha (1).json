@@ -1,0 +1,460 @@
+{
+  "$id": "1",
+  "definitionId": "72ff3799d9f34ca0b7fe550c26bdc2df",
+  "versionId": "7521d655f7ae4203ba1ba56be0b5581e",
+  "name": "FC FL FHA",
+  "displayName": "FC FL FHA",
+  "version": 1,
+  "variables": {
+    "$id": "2",
+    "data": {}
+  },
+  "customAttributes": {
+    "$id": "3",
+    "data": {}
+  },
+  "isSingleton": false,
+  "persistenceBehavior": "WorkflowBurst",
+  "deleteCompletedInstances": false,
+  "isPublished": true,
+  "isLatest": true,
+  "createdAt": "2022-11-03T10:09:22.5500731Z",
+  "activities": [
+    {
+      "$id": "4",
+      "activityId": "bbc8dcb2-ad68-40d2-91b2-ddc074b663c5",
+      "type": "FileReferred",
+      "displayName": "File Referred To Attorney",
+      "persistWorkflow": false,
+      "loadWorkflowContext": false,
+      "saveWorkflowContext": false,
+      "properties": [
+        {
+          "$id": "5",
+          "name": "Signal",
+          "expressions": {
+            "$id": "6",
+            "Literal": "FileReferred"
+          }
+        }
+      ],
+      "propertyStorageProviders": {
+        "$id": "7"
+      }
+    },
+    {
+      "$id": "8",
+      "activityId": "e943d047-6dbe-4e35-a6fc-c441eef5490e",
+      "type": "FileReceived",
+      "displayName": "File Received By Attorney",
+      "persistWorkflow": false,
+      "loadWorkflowContext": false,
+      "saveWorkflowContext": false,
+      "properties": [
+        {
+          "$id": "9",
+          "name": "Signal",
+          "expressions": {
+            "$id": "10",
+            "Literal": "FileReceived"
+          }
+        }
+      ],
+      "propertyStorageProviders": {
+        "$id": "11"
+      }
+    },
+    {
+      "$id": "12",
+      "activityId": "a42baa67-f34b-4168-ab6b-f135df194c74",
+      "type": "FCTitleOrdered",
+      "displayName": "FC Title Ordered",
+      "persistWorkflow": false,
+      "loadWorkflowContext": false,
+      "saveWorkflowContext": false,
+      "properties": [
+        {
+          "$id": "13",
+          "name": "Signal",
+          "expressions": {
+            "$id": "14",
+            "Literal": "FCTitleOrdered"
+          }
+        }
+      ],
+      "propertyStorageProviders": {
+        "$id": "15"
+      }
+    },
+    {
+      "$id": "16",
+      "activityId": "223fe5ae-35fb-4713-86f6-cefd488b8eaa",
+      "type": "Fork",
+      "displayName": "Fork",
+      "persistWorkflow": false,
+      "loadWorkflowContext": false,
+      "saveWorkflowContext": false,
+      "properties": [
+        {
+          "$id": "17",
+          "name": "Branches",
+          "expressions": {
+            "$id": "18",
+            "Json": "[\"FCTitle\",\"SCRA\"]"
+          }
+        }
+      ],
+      "propertyStorageProviders": {
+        "$id": "19"
+      }
+    },
+    {
+      "$id": "20",
+      "activityId": "eda4f9d3-b537-4870-8e31-ea7e3520adf7",
+      "type": "TitleReportReceived",
+      "displayName": "Title Report Received",
+      "persistWorkflow": false,
+      "loadWorkflowContext": false,
+      "saveWorkflowContext": false,
+      "properties": [
+        {
+          "$id": "21",
+          "name": "Signal",
+          "expressions": {
+            "$id": "22",
+            "Literal": "TitleReportReceived"
+          }
+        }
+      ],
+      "propertyStorageProviders": {
+        "$id": "23"
+      }
+    },
+    {
+      "$id": "24",
+      "activityId": "57d6e79e-808f-41ea-9be1-1d91e7148511",
+      "type": "PreliminaryTitleClear",
+      "displayName": "Preliminary Title Clear",
+      "persistWorkflow": false,
+      "loadWorkflowContext": false,
+      "saveWorkflowContext": false,
+      "properties": [
+        {
+          "$id": "25",
+          "name": "Signal",
+          "expressions": {
+            "$id": "26",
+            "Literal": "PreliminaryTitleClear"
+          }
+        }
+      ],
+      "propertyStorageProviders": {
+        "$id": "27"
+      }
+    },
+    {
+      "$id": "28",
+      "activityId": "ba0573f0-64f6-4488-bb5a-d2df6134c7d5",
+      "type": "ComplaintFiled",
+      "displayName": "Complaint Filed",
+      "persistWorkflow": false,
+      "loadWorkflowContext": false,
+      "saveWorkflowContext": false,
+      "properties": [
+        {
+          "$id": "29",
+          "name": "Signal",
+          "expressions": {
+            "$id": "30",
+            "Literal": "ComplaintFiled"
+          }
+        }
+      ],
+      "propertyStorageProviders": {
+        "$id": "31"
+      }
+    },
+    {
+      "$id": "32",
+      "activityId": "4c5ec63b-0357-42c4-95fa-633a70c3fb85",
+      "type": "Finish",
+      "displayName": "Finish",
+      "persistWorkflow": false,
+      "loadWorkflowContext": false,
+      "saveWorkflowContext": false,
+      "properties": [
+        {
+          "$id": "33",
+          "name": "ActivityOutput",
+          "expressions": {
+            "$id": "34"
+          }
+        },
+        {
+          "$id": "35",
+          "name": "OutcomeNames",
+          "expressions": {
+            "$id": "36"
+          }
+        }
+      ],
+      "propertyStorageProviders": {
+        "$id": "37"
+      }
+    },
+    {
+      "$id": "38",
+      "activityId": "e069dcb6-e4be-4c61-96ad-6827f8fab56b",
+      "type": "Join",
+      "displayName": "Join",
+      "persistWorkflow": false,
+      "loadWorkflowContext": false,
+      "saveWorkflowContext": false,
+      "properties": [
+        {
+          "$id": "39",
+          "name": "EagerJoin",
+          "expressions": {
+            "$id": "40"
+          }
+        },
+        {
+          "$id": "41",
+          "name": "Mode",
+          "expressions": {
+            "$id": "42",
+            "Literal": "WaitAny"
+          }
+        }
+      ],
+      "propertyStorageProviders": {
+        "$id": "43"
+      }
+    },
+    {
+      "$id": "44",
+      "activityId": "827949ba-be46-4538-a312-d2596bfe507f",
+      "type": "HttpEndpoint",
+      "displayName": "HTTP Endpoint",
+      "persistWorkflow": false,
+      "loadWorkflowContext": false,
+      "saveWorkflowContext": false,
+      "properties": [
+        {
+          "$id": "45",
+          "name": "Path",
+          "expressions": {
+            "$id": "46",
+            "Literal": "/cms/fcfha"
+          }
+        },
+        {
+          "$id": "47",
+          "name": "Methods",
+          "expressions": {
+            "$id": "48",
+            "Json": "[\"GET\"]"
+          }
+        },
+        {
+          "$id": "49",
+          "name": "ReadContent",
+          "expressions": {
+            "$id": "50"
+          }
+        },
+        {
+          "$id": "51",
+          "name": "TargetType",
+          "expressions": {
+            "$id": "52"
+          }
+        },
+        {
+          "$id": "53",
+          "name": "Schema",
+          "syntax": "Literal",
+          "expressions": {
+            "$id": "54",
+            "Literal": ""
+          }
+        },
+        {
+          "$id": "55",
+          "name": "Authorize",
+          "expressions": {
+            "$id": "56"
+          }
+        },
+        {
+          "$id": "57",
+          "name": "Policy",
+          "expressions": {
+            "$id": "58"
+          }
+        }
+      ],
+      "propertyStorageProviders": {
+        "$id": "59"
+      }
+    },
+    {
+      "$id": "60",
+      "activityId": "13c63f6e-e3b6-4e4d-b06e-7bb94d3c55be",
+      "type": "WriteHttpResponse",
+      "displayName": "HTTP Response",
+      "persistWorkflow": false,
+      "loadWorkflowContext": false,
+      "saveWorkflowContext": false,
+      "properties": [
+        {
+          "$id": "61",
+          "name": "Content",
+          "syntax": "Liquid",
+          "expressions": {
+            "$id": "62",
+            "Liquid": "{{WorkflowInstanceId}}"
+          }
+        },
+        {
+          "$id": "63",
+          "name": "ContentType",
+          "expressions": {
+            "$id": "64",
+            "Literal": "text/plain"
+          }
+        },
+        {
+          "$id": "65",
+          "name": "StatusCode",
+          "expressions": {
+            "$id": "66",
+            "Literal": "OK"
+          }
+        },
+        {
+          "$id": "67",
+          "name": "CharSet",
+          "expressions": {
+            "$id": "68",
+            "Literal": ""
+          }
+        },
+        {
+          "$id": "69",
+          "name": "ResponseHeaders",
+          "expressions": {
+            "$id": "70"
+          }
+        }
+      ],
+      "propertyStorageProviders": {
+        "$id": "71"
+      }
+    },
+    {
+      "$id": "72",
+      "activityId": "aede3182-f4f0-4944-a561-9f6becdd576e",
+      "type": "FCSCRAEligibilityReview",
+      "displayName": "FC SCRA Eligibility Review",
+      "persistWorkflow": false,
+      "loadWorkflowContext": false,
+      "saveWorkflowContext": false,
+      "properties": [
+        {
+          "$id": "73",
+          "name": "Signal",
+          "expressions": {
+            "$id": "74",
+            "Literal": "FCSCRAEligibilityReview"
+          }
+        },
+        {
+          "$id": "75",
+          "name": "TargetDate",
+          "expressions": {
+            "$id": "76"
+          }
+        }
+      ],
+      "propertyStorageProviders": {
+        "$id": "77"
+      }
+    }
+  ],
+  "connections": [
+    {
+      "$id": "78",
+      "sourceActivityId": "bbc8dcb2-ad68-40d2-91b2-ddc074b663c5",
+      "targetActivityId": "e943d047-6dbe-4e35-a6fc-c441eef5490e",
+      "outcome": "Done"
+    },
+    {
+      "$id": "79",
+      "sourceActivityId": "e943d047-6dbe-4e35-a6fc-c441eef5490e",
+      "targetActivityId": "223fe5ae-35fb-4713-86f6-cefd488b8eaa",
+      "outcome": "Done"
+    },
+    {
+      "$id": "80",
+      "sourceActivityId": "223fe5ae-35fb-4713-86f6-cefd488b8eaa",
+      "targetActivityId": "a42baa67-f34b-4168-ab6b-f135df194c74",
+      "outcome": "FCTitle"
+    },
+    {
+      "$id": "81",
+      "sourceActivityId": "a42baa67-f34b-4168-ab6b-f135df194c74",
+      "targetActivityId": "eda4f9d3-b537-4870-8e31-ea7e3520adf7",
+      "outcome": "Done"
+    },
+    {
+      "$id": "82",
+      "sourceActivityId": "eda4f9d3-b537-4870-8e31-ea7e3520adf7",
+      "targetActivityId": "57d6e79e-808f-41ea-9be1-1d91e7148511",
+      "outcome": "Done"
+    },
+    {
+      "$id": "83",
+      "sourceActivityId": "57d6e79e-808f-41ea-9be1-1d91e7148511",
+      "targetActivityId": "ba0573f0-64f6-4488-bb5a-d2df6134c7d5",
+      "outcome": "Done"
+    },
+    {
+      "$id": "84",
+      "sourceActivityId": "ba0573f0-64f6-4488-bb5a-d2df6134c7d5",
+      "targetActivityId": "e069dcb6-e4be-4c61-96ad-6827f8fab56b",
+      "outcome": "Done"
+    },
+    {
+      "$id": "85",
+      "sourceActivityId": "e069dcb6-e4be-4c61-96ad-6827f8fab56b",
+      "targetActivityId": "4c5ec63b-0357-42c4-95fa-633a70c3fb85",
+      "outcome": "Done"
+    },
+    {
+      "$id": "86",
+      "sourceActivityId": "827949ba-be46-4538-a312-d2596bfe507f",
+      "targetActivityId": "13c63f6e-e3b6-4e4d-b06e-7bb94d3c55be",
+      "outcome": "Done"
+    },
+    {
+      "$id": "87",
+      "sourceActivityId": "13c63f6e-e3b6-4e4d-b06e-7bb94d3c55be",
+      "targetActivityId": "bbc8dcb2-ad68-40d2-91b2-ddc074b663c5",
+      "outcome": "Done"
+    },
+    {
+      "$id": "88",
+      "sourceActivityId": "223fe5ae-35fb-4713-86f6-cefd488b8eaa",
+      "targetActivityId": "aede3182-f4f0-4944-a561-9f6becdd576e",
+      "outcome": "SCRA"
+    },
+    {
+      "$id": "89",
+      "sourceActivityId": "aede3182-f4f0-4944-a561-9f6becdd576e",
+      "targetActivityId": "e069dcb6-e4be-4c61-96ad-6827f8fab56b",
+      "outcome": "Done"
+    }
+  ],
+  "id": "7521d655f7ae4203ba1ba56be0b5581e"
+}
