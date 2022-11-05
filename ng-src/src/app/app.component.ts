@@ -12,7 +12,7 @@ import { MessageService } from 'primeng/api';
 })
 export class AppComponent implements OnInit {
   workflowURL = "https://localhost:7190";
-  workflowID = '851dc172821f4a1c99e03a55d9f76269';
+  workflowID = '8cebbf90aa474c589cac6cf1b8cbb086';
   workflowStart = "/condo"
   workflowInstanceId = ""
   workflowProgressUrl = this.workflowURL + "/workflow-instances"
@@ -23,6 +23,7 @@ export class AppComponent implements OnInit {
   activeIndex = 0
   caseCompleted = false;
   checkedSwitch = true;
+  isQC = false;
   documents: any = [];
   case: any = {
     File: "Test-File-XYZ",
@@ -58,7 +59,6 @@ export class AppComponent implements OnInit {
       { label: 'Create Order' },
       { label: 'Document Received' },
       { label: 'Document Review' },
-      { label: 'Quality Control' },
       { label: 'Order Fulfilled' }
     ];
 
@@ -107,41 +107,57 @@ export class AppComponent implements OnInit {
       { name: 'Insurance Document', code: 'RM', inactive: false },
       { name: 'Budget', code: 'PRS', inactive: false }
     ];
-    this.setCaseStepTasks();
+    this.setCaseSteps();
   }
-  setCaseStepTasks() {
+  setCaseSteps() {
     this.http.get(this.workflowURL + '/v1/workflow-definitions/' + this.workflowID + '/Latest')
       .subscribe((data: any) => {
         console.log(data.activities);
-        // data.activities.map()
         const excludeSteps = ['Fork', 'Finish', 'Join', 'HttpEndpoint', 'WriteHttpResponse']
-        // this.caseStepTasks
         data.activities.map((actvt: any) => {
-          // if(actvt.type.includes)
-          if (excludeSteps.indexOf(actvt.type) === -1)
-            this.caseStepTasks.push({ stepName: actvt.displayName, stepSignal: actvt.type, disabled: false });
+          if (actvt.type === 'QualityControl') {
+            this.isQC = true;
+            console.log('isQC is ', this.isQC);
+            if (this.isQC) {
+              this.stepItems = [
+                { label: 'Create Order' },
+                { label: 'Document Received' },
+                { label: 'Document Review' },
+                { label: 'Quality Control' },
+                { label: 'Order Fulfilled' }
+              ];
+            }
+            return;
+          }
+          this.caseStepTasks.push({ stepName: actvt.displayName, stepSignal: actvt.type, disabled: false });
+          // }
         })
       })
-
-    // this.caseStepTasks = [
-    //   { stepName: 'File Referred To Attorney', stepSignal: 'FileReferred', disabled: false },
-    //   { stepName: 'File Received By Attorney', stepSignal: 'FileReceived', disabled: false },
-    //   { stepName: 'FC Title Ordered', stepSignal: 'FCTitleOrdered', disabled: false },
-    //   { stepName: 'FC SCRA Eligibility Review', stepSignal: 'FCSCRAEligibilityReview', disabled: false },
-    //   { stepName: 'Title Report Received', stepSignal: 'TitleReportReceived', disabled: true },
-    //   { stepName: 'Preliminary Title Clear', stepSignal: 'PreliminaryTitleClear', disabled: true },
-    //   { stepName: 'Complaint Filed', stepSignal: 'ComplaintFiled', disabled: true },
-    //   // { stepName: 'HUD First Action Expires', stepSignal: 'HUDFirstActionExpires', disabled: true },
-    // ];
   }
 
   orderStep(step: any) {
     console.log(step);
+    if (this.caseCompleted) {
+      this.next();
+    } else {
+      this.http.post<any>(`${this.workflowURL}/v1/custom-signals/${step}/execute`, { workflowInstanceId: this.workflowInstanceId })
+        .subscribe(data => {
+          console.log('Post Response', data);
+          if (data.startedWorkflows.length > 0) {
+            this.showSuccess(`Changes Saved, Order step is completed successfully.`);
+            this.next();
+          } else {
+            this.showError(`Order step cannot be is completed, please check dependent steps and try again.`);
+            this.next();
+          }
+        });
+    }
+  }
 
-    this.http.post<any>(`${this.workflowURL}/v1/custom-signals/${step}/execute`, { workflowInstanceId: this.workflowInstanceId })
-      .subscribe(data => {
-        console.log('Post Response', data);
-        if (data.startedWorkflows.length > 0) {
+  orderStepApproveReject(step: any) {
+    this.http.get(`${this.workflowURL}/v1/custom-signals/${step}/execute?workflowInstanceId=${this.workflowInstanceId}`,
+      { responseType: 'text' }).subscribe(data => {
+        if (data.includes('Thanks')) {
           this.showSuccess(`Changes Saved, Order step is completed successfully.`);
           this.next();
         } else {
@@ -151,45 +167,29 @@ export class AppComponent implements OnInit {
       })
   }
 
-  reforecastStepTasks() {
-    this.httpGet(this.workflowStart);
-    this.setCaseStepTasks();
-    // this.overDueSteps();
-  }
-
   caseCreate() {
     if (this.case.Loan) {
       if (!this.workflowInstanceId) {
         // { responseType: 'text' }
-        const headers = new HttpHeaders()
-          .set('Content-Type', 'text/plain; charset=utf-8');
-        const options: any = { headers, responseType: 'text' };
+        // const headers = new HttpHeaders()
+        //   .set('Content-Type', 'application/json; charset=utf-8');
+        // const options: any = { headers, responseType: 'text' };
         this.http.post<any>(this.workflowURL + this.workflowStart,
-          { OrderName: this.case.OrderID, ReviewerName: this.case.User, ReviewerEmail: this.case.ReviewerEmail },
-          options)
+          { OrderName: this.case.OrderID, ReviewerName: this.case.User, ReviewerEmail: this.case.ReviewerEmail }) //,options)
           .subscribe((data: any) => {
-            this.workflowInstanceId = data;
-            console.log(this.workflowInstanceId);
+            this.workflowID = data.workflowDefinitionId
+            this.workflowInstanceId = data.workflowInstanceId;
             this.workflowProgressUrl = this.workflowURL + "/workflow-instances/" + this.workflowInstanceId;
             this.showSuccess(`Changes Saved, Order step is completed successfully.`);
             this.next();
           })
+      } else {
+        this.next();
       }
     } else {
       this.showError("Loan Number is required.");
     }
   }
-
-  // overDueSteps() {
-  //   setTimeout(() => {
-  //     this.caseStepTasks.map((x: { stepName: string; stepSignal: string; completed: boolean; disabled: boolean; overdue: boolean; }) => {
-  //       if (x.stepSignal === 'FCSCRAEligibilityReview' && !x.stepName.includes('Complete')) {
-  //         x.stepName = x.stepName.replace(' - OverDue', '') + ' - OverDue';
-  //         x.overdue = true;
-  //       }
-  //     });
-  //   }, 60 * 1000);
-  // }
 
   caseStepsComplete() {
     this.http.get(this.workflowURL + "/v1/workflow-instances/" + this.workflowInstanceId)
@@ -200,13 +200,11 @@ export class AppComponent implements OnInit {
             this.showSuccess("Order is completed successfully, All the Case steps are Complete.");
             this.caseCompleted = true;
           }
-          this.next();
         } else {
           this.showError("Before Case Completion, Please make sure that all case steps are Complete.");
         }
       });
   }
-
 
   back() {
     this.activeIndex = this.activeIndex - 1;

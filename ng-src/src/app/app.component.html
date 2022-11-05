@@ -182,13 +182,13 @@
             <label for="fileid" class="pl-2">{{case.Email}}</label>
           </div>
 
-          <div class="ml-2 mb-3">
+          <div class="field col-6 mb-3">
             <label for="fileid" class="font-bold">Property Address: </label>
             <label for="fileid" class="pl-2">{{case.Address}}, {{case.County}}, {{case.City}}, {{case.State}}
               {{case.Zip}}</label>
           </div>
-          <div class="field col-6"></div>
-          <div class="field col-4">
+          <!-- <div class="field col-6"></div> -->
+          <div class="field col-6">
             <label for="address" class="font-bold">Documents</label>
             <p-listbox [options]="documents" optionLabel="name" optionDisabled="inactive"></p-listbox>
           </div>
@@ -206,7 +206,7 @@
           <button pButton pRipple type="button" class="mx-3" icon="pi pi-chevron-left" label="Back" iconPos="left"
             (click)="back()"></button>
           <button pButton pRipple type="button" icon="pi pi-chevron-right" label="Next"
-            (click)="orderStep('orderFulfilled')" iconPos="right"></button>
+            (click)="orderStep('DocumentReceived')" iconPos="right"></button>
         </div>
       </p-card>
       <p-card *ngIf="activeIndex==2" header="Document Review"
@@ -228,13 +228,13 @@
             <label for="zip" class="font-bold">Email</label>
             <label for="fileid" class="pl-2">{{case.Email}}</label>
           </div>
-          <div class="ml-2 mb-3">
+          <div class="field col-6 mb-3">
             <label for="fileid" class="font-bold">Property Address: </label>
             <label for="fileid" class="pl-2">{{case.Address}}, {{case.County}}, {{case.City}}, {{case.State}}
               {{case.Zip}}</label>
           </div>
-          <div class="field col-6"></div>
-          <div class="field col-4">
+          <!-- <div class="field col-6"></div> -->
+          <div class="field col-6">
             <label for="address" class="font-bold">Documents</label>
             <p-listbox [options]="documents" optionLabel="name" optionDisabled="inactive"></p-listbox>
           </div>
@@ -251,14 +251,16 @@
             iconPos="left" (click)="openWorkflow(workflowProgressUrl)"></button>
           <button pButton pRipple type="button" class="mx-3" icon="pi pi-chevron-left" label="Back" iconPos="left"
             (click)="back()"></button>
-          <button pButton pRipple type="button" label="Approve" class="p-button-success"></button>
-          <button pButton pRipple type="button" label="Reject" class="p-button-danger mx-3"></button>
-          <button pButton pRipple type="button" icon="pi pi-chevron-right" label="Next"
-            (click)="orderStep('orderFulfilled')" iconPos="right"></button>
+          <button *ngIf="!caseCompleted" pButton pRipple type="button" label="Approve" icon="pi pi-chevron-right"
+            class="p-button-success" (click)="orderStepApproveReject('Approve')" iconPos="right"></button>
+          <button *ngIf="!caseCompleted" pButton pRipple type="button" label="Reject" icon="pi pi-chevron-right"
+            class="p-button-danger mx-3" (click)="orderStepApproveReject('Reject')" iconPos="right"></button>
+          <button *ngIf="caseCompleted" pButton pRipple type="button" icon="pi pi-chevron-right" label="Next"
+            (click)="orderStep('DocumentReview')" iconPos="right"></button>
         </div>
       </p-card>
 
-      <p-card *ngIf="activeIndex==3" header="Quality Control"
+      <p-card *ngIf="activeIndex==3&&isQC" header="Quality Control"
         subheader="The Order is ready for Quality Audit, please check and move to next steps.">
         <div class="formgrid grid">
           <div class="field col-2 md:col-3">
@@ -461,11 +463,11 @@
           <button pButton pRipple type="button" class="mx-3" icon="pi pi-chevron-left" label="Back" iconPos="left"
             (click)="back()"></button>
           <button pButton pRipple type="button" icon="pi pi-chevron-right" label="Next"
-            (click)="orderStep('orderFulfilled')" iconPos="right"></button>
+            (click)="orderStep('QualityControl')" iconPos="right"></button>
         </div>
       </p-card>
 
-      <p-card *ngIf="activeIndex==4" header="Order Fulfilled"
+      <p-card *ngIf="activeIndex==4 || (activeIndex==3&&!isQC)" header="Order Fulfilled"
         subheader="The Order is ready to be fulfilled, please complete this step.">
         <div class="formgrid grid">
           <div class="field col-2 md:col-3">
